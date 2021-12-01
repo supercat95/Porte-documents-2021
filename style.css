@@ -1,0 +1,84 @@
+h1, h2, h3, .comment, li a, footer { text-align: center; }
+
+h2 { 
+    background-color: lightseagreen; 
+    color: white;
+}
+
+/*------------------Navigation----------------------*/
+ul {
+    background-color: lightseagreen;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li { 
+    float: left; 
+    margin-left: 120px;
+}
+
+li a {
+    color: black;
+    display: block;
+    padding: 10px 25px;
+    font-size: large;
+    text-decoration: none;
+}
+
+li a:hover { 
+    background-color: white;
+    border-style: double;
+    padding: 7px 22px;
+}
+
+/*--------------------Footer------------------------*/
+footer {
+    background-color: lightseagreen; 
+    width: 100%;
+    margin-top: 15px;
+    bottom: 0px;
+    display: block;
+    padding: 3px;
+}
+
+/*------------------Art Photos----------------------*/
+.grid {
+    border: 2px solid lightseagreen;
+    padding: 20px;
+}
+
+img {
+    width: 30%;
+    height: auto;
+}
+
+.center {
+    display: block;
+    margin: 0px auto;
+}
+
+/*------------------Code Videos----------------------*/
+iframe {
+    display: block;
+    margin: 0px auto;
+    
+}
+
+.group {
+    border: 15px solid lightseagreen;
+    margin-left: 250px;
+    margin-right: 250px;
+}
+
+/*-----------------index.html------------------------*/
+p {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.intro {
+    border: 4px solid lightseagreen;
+    padding: 20px;
+}
