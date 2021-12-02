@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 h1, h2, h3, .comment, li a, footer { text-align: center; }
 
 h2 { 
@@ -61,9 +68,9 @@ img {
 
 /*------------------Code Videos----------------------*/
 iframe {
-    display: block;
-    margin: 0px auto;
-    
+    /* display: block; */
+    /* margin: 0px auto; */
+    position: absolute;
 }
 
 .group {
