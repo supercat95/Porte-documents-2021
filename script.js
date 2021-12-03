@@ -9,13 +9,14 @@ function setup() {
 
     // assignment of variables for code TVs
     widthOfTV = windowWidth/5.0; // this is the radius
-    yValueOfTV = windowHeight/5.0;
-    xValOfTV = (widthOfTV * 1.2) - (widthOfTV / 2.0);
+    yValueOfTV = windowHeight/6.0;
+    xValOfTV = (widthOfTV * 1.2) - (widthOfTV / 1.6); // 1.2 2.0
 }
 
 function draw() {
-    // console.log(pmouseX + ' ' + pmouseY);
-
+    // console.log(pmouseX + ' ' + pmouseY);  
+    noLoop();
+    
     drawArches();
     drawSpotlightsUnderTVs();
     drawTVsForCodeVideos(); // call last because of error
@@ -35,8 +36,9 @@ function drawTVsForCodeVideos() {
         rect(xValOfTV, yValueOfTV, widthOfTV, yValueOfTV);
 
         drawSupportsForTVs();
-        // embedCodeVideos(i);
-        xValOfTV+=(widthOfTV * 1.2); // based off widthOfTV/5.0 to equal 100% of screen width
+        embedCodeVideos(i);
+        xValOfTV+=(widthOfTV * 1.09); // 1.2x based off widthOfTV/5.0 to equal 100% of screen width
+        if (i==1) { xValOfTV += widthOfTV/1.8; }
     }
 }
 
@@ -74,9 +76,9 @@ function embedCodeVideos(i) {
 // draws 3 arches underneath the code tvs 
 function drawArches() {
     let x = widthOfTV / 3.0;
-    let y = 4*windowHeight/5.0;
+    let y = 3*windowHeight/4.0;
     fill(0,255,0); // REPLACE LATER
-    strokeWeight(5); // REPLACE LATER
+    strokeWeight(3); // REPLACE LATER
 
     // horizontally spaces out the arches
     for (let i = 0; i < 3; i++) {
@@ -105,8 +107,8 @@ function drawArches() {
 }
 
 function drawSpotlightsUnderTVs() {
-    let x1 = windowWidth/2.6;
-    let x2 = windowWidth/1.6;
+    let x1 = windowWidth/3; //2.6 
+    let x2 = 2*windowWidth/3; //1.6
     let y1 = 7*windowHeight/10.0;
     let rad = widthOfTV/4;
 
