@@ -14,7 +14,11 @@ function setup() {
 }
 
 function draw() {
-    drawTVsForCodeVideos();
+    // console.log(pmouseX + ' ' + pmouseY);
+
+    drawArches();
+    drawSpotlightsUnderTVs();
+    drawTVsForCodeVideos(); // call last because of error
 }
 
 // --------------- TVs -------------------------------
@@ -31,7 +35,7 @@ function drawTVsForCodeVideos() {
         rect(xValOfTV, yValueOfTV, widthOfTV, yValueOfTV);
 
         drawSupportsForTVs();
-        embedCodeVideos(i);
+        // embedCodeVideos(i);
         xValOfTV+=(widthOfTV * 1.2); // based off widthOfTV/5.0 to equal 100% of screen width
     }
 }
@@ -48,7 +52,8 @@ function drawSupportsForTVs() {
     line(x1 +1 , yValueOfTV / 2.0, x1 +1, 0);
     line(x2 -1, yValueOfTV / 2.0, x2 -1, 0);
 }
- // align and embed YT videos into the rects
+
+// align and embed YT videos into the rects
 function embedCodeVideos(i) {
     let video;
 
@@ -64,3 +69,56 @@ function embedCodeVideos(i) {
     document.getElementById(video).style.left = xValOfTV - (widthOfTV / 2.2) - 2.5 + 'px';
     document.getElementById(video).style.top = yValueOfTV / 2.0 + 10 + 'px';
 }
+
+// --------------- arches ----------------------------
+// draws 3 arches underneath the code tvs 
+function drawArches() {
+    let x = widthOfTV / 3.0;
+    let y = 4*windowHeight/5.0;
+    fill(0,255,0); // REPLACE LATER
+    strokeWeight(5); // REPLACE LATER
+
+    // horizontally spaces out the arches
+    for (let i = 0; i < 3; i++) {
+        // vertices go clockwise from bottom left
+        beginShape();
+            curveVertex(x, y);
+            curveVertex(x, y);
+
+            curveVertex(x + widthOfTV*.05, y - windowHeight*.20); // .05 .20
+            curveVertex(x + widthOfTV*.20, y - windowHeight*.35); //.20 .35
+            curveVertex(x + widthOfTV*.36, y - windowHeight*.43); //.36 .43
+
+            curveVertex(x + widthOfTV*.50, y - windowHeight*.45); // center point .5 .45
+
+            curveVertex(x + widthOfTV*.64, y - windowHeight*.43); //.64 .43
+            curveVertex(x + widthOfTV*.80, y -windowHeight*.35); //.80 .35
+            curveVertex(x + widthOfTV*.95, y - windowHeight*.20); //.95 .20
+
+            curveVertex(x + widthOfTV, y);
+            curveVertex(x + widthOfTV, y);
+
+            line(x + widthOfTV, y, x, y);
+        endShape();
+        x += windowWidth/3;
+    }
+}
+
+function drawSpotlightsUnderTVs() {
+    let x1 = windowWidth/2.6;
+    let x2 = windowWidth/1.6;
+    let y1 = 7*windowHeight/10.0;
+    let rad = widthOfTV/4;
+
+    fill(237,227,2); // yellow. can change later
+    noStroke();
+
+    ellipse(x1, y1, rad);
+    ellipse(x2, y1, rad);
+
+    // bottom, left, right
+    triangle(x1,y1, x1-rad,y1-yValueOfTV, x1+rad,y1-yValueOfTV);
+    triangle(x2,y1, x2-rad,y1-yValueOfTV, x2+rad,y1-yValueOfTV);
+}
+
+  
