@@ -8,6 +8,10 @@ let strokeOfTV;
 let strokeOfSupports;
 let strokeDif;
 
+// variables for layer 2
+let x1ForLayer2;
+let x2ForLayer2;
+
 function setup() {
     createCanvas(windowWidth, windowHeight);
     background(255,0,0);
@@ -21,6 +25,9 @@ function setup() {
     strokeOfTV = 5;
     strokeOfSupports = 3;
     strokeDif = strokeOfTV - strokeOfSupports;
+
+    x1ForLayer2 = windowWidth/3; //2.6 
+    x2ForLayer2 = 2*windowWidth/3; //1.6
 }
 
 function draw() {
@@ -29,10 +36,12 @@ function draw() {
 
     drawArches();
     drawSpotlightsUnderTVs();
+    drawDiplomas();
+    drawTables();
     drawTVsForCodeVideos(); // call last because of error
 }
 
-// --------------- TVs -------------------------------
+// ------------------ layer 1: TVs ----------------------
 // MOVE INTO DRAW() ? Uses a loop to create 4 tvs with embedded videos. Calls two other functions.
 function drawTVsForCodeVideos() {
     rectMode(CENTER);
@@ -82,11 +91,11 @@ function embedCodeVideos(i) {
     document.getElementById(video).style.top = (yPosOfTV / 2.0) - (strokeOfTV * 2) + 'px';
 }
 
-// --------------- arches ----------------------------
+// ------- layer 2: arches, spotlights, diplomas ---------
 // draws 3 arches underneath the code tvs 
 function drawArches() {
     let x = widthOfTV / 3.0;
-    let y = 3*windowHeight/4.0;
+    let y = windowHeight*.75;
     fill(0,255,0); // REPLACE LATER
     strokeWeight(3); // REPLACE LATER
 
@@ -118,20 +127,47 @@ function drawArches() {
 
 // draws 2 spotlights between the arches
 function drawSpotlightsUnderTVs() {
-    let x1 = windowWidth/3; //2.6 
-    let x2 = 2*windowWidth/3; //1.6
-    let y1 = 7*windowHeight/10.0;
+    let y1 = windowHeight*.7;
+    let y2 = y1 - (heightOfTV*.75);
     let rad = widthOfTV/4;
 
     fill(237,227,2); // yellow. can change later
     noStroke();
 
-    ellipse(x1, y1, rad);
-    ellipse(x2, y1, rad);
+    ellipse(x1ForLayer2, y1, rad);
+    ellipse(x2ForLayer2, y1, rad);
 
     // bottom, left, right
-    triangle(x1,y1, x1-rad,y1-heightOfTV, x1+rad,y1-heightOfTV);
-    triangle(x2,y1, x2-rad,y1-heightOfTV, x2+rad,y1-heightOfTV);
+    triangle(x1ForLayer2,y1, x1ForLayer2-rad,y2, x1ForLayer2+rad,y2);
+    triangle(x2ForLayer2,y1, x2ForLayer2-rad,y2, x2ForLayer2+rad,y2);
 }
 
+// draws 2 diplomas and 2 French certs over the spotlights
+// REPLACE RECTS WITH SCANS/REPS OF DIPS AND CERTS
+function drawDiplomas() {
+    let y1 = windowHeight * .35;
+    let y2 = y1 * 1.32;
+
+    let x, y, w, h;
+
+    // REPLACE/REMOVE LATER
+    fill(0,0,255);
+    rectMode(CENTER);
+
+    rect(x1ForLayer2, y1, widthOfTV*.5, heightOfTV*.5); //SMU
+    rect(x1ForLayer2, y2, widthOfTV*.4, heightOfTV*.4); //TCC
+
+    rect(x2ForLayer2, y1, widthOfTV*.5, heightOfTV*.5); //CEFR
+    rect(x2ForLayer2, y2, widthOfTV*.4, heightOfTV*.4); //DFP
+}
+
+// --------- layer 3: tables and about me sign -----------
+function drawTables() {
+    stroke(255);
+    rectMode(CORNERS);
+    
+    line(0, windowHeight*.8, windowWidth, windowHeight*.8);
+
+    rect()
+}
   
