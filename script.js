@@ -13,10 +13,10 @@ let x1ForLayer2;
 let x2ForLayer2;
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
-    background(255,0,0);
+    // createCanvas(windowWidth, windowHeight);
+    // background(255,0,0);
 
-    assignVariables(); // variables that rely on Window
+    // assignVariables(); // variables that rely on Window
 
     strokeOfTV = 5;
     strokeOfSupports = 3;
@@ -25,8 +25,11 @@ function setup() {
 
 function draw() {
     // console.log(pmouseX + ' ' + pmouseY); // for debug
-    noLoop(); // temp while TVs have an error
+    // noLoop(); // temp while TVs have an error
+    createCanvas(windowWidth, windowHeight);
+    background(255,0,0);
 
+    assignVariables(); // variables that rely on Window
     // layer 2
     drawArches();
     drawSpotlightsUnderTVs();
