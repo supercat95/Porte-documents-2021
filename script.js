@@ -1,3 +1,5 @@
+// I mention "layers" throughout my code, referring to the division of the composition into three horizontal sections: TVs, middle section, floor section
+
 // declaration of variables for layer 1
 let widthOfTV;
 let heightOfTV;
