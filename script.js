@@ -1,5 +1,3 @@
-// I mention "layers", which is the composition divided into three horizontal sections (rule of thirds): TVs, middle section, floor
-
 // declaration of variables for code TVs
 let widthOfTV;
 let heightOfTV;
@@ -16,7 +14,7 @@ let x2ForLayer2;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    background(212,198,191);
+    background(255,0,0);
 
     // assignment of variables for code TVs
     widthOfTV = windowWidth/5.0; // this is the radius
@@ -28,7 +26,6 @@ function setup() {
     strokeOfSupports = 3;
     strokeDif = strokeOfTV - strokeOfSupports;
 
-    // variables for layer 2
     x1ForLayer2 = windowWidth/3; //2.6 
     x2ForLayer2 = 2*windowWidth/3; //1.6
 }
@@ -36,16 +33,19 @@ function setup() {
 function draw() {
     // console.log(pmouseX + ' ' + pmouseY);  
     noLoop();
-    // fill(212, 198, 191); // beige color for wall
-    // layer 2
+
     drawArches();
     drawSpotlightsUnderTVs();
     drawDiplomas();
-    // layer 3
-    drawFloor();
     drawTables();
-    // layer 1
     drawTVsForCodeVideos(); // call last because of error
+}
+
+function embedStuff(id, width, height, left, top) {
+    document.getElementById(id).width = width;
+    document.getElementById(id).height = height;
+    document.getElementById(id).style.left = left + 'px';
+    document.getElementById(id).style.top = top + 'px';
 }
 
 // ------------------ layer 1: TVs ----------------------
@@ -92,10 +92,10 @@ function embedCodeVideos(i) {
     else if (i==2) { video = "galaxy"; }
     // else if (i==3) { video = "?"; } // UPDATE LATER
 
-    document.getElementById(video).width = widthOfTV - strokeOfTV;
-    document.getElementById(video).height = heightOfTV - strokeOfTV;
-    document.getElementById(video).style.left = xPosOfTV - (widthOfTV / 2.2) - (strokeOfTV / 2) + 'px';
-    document.getElementById(video).style.top = (yPosOfTV / 2.0) - (strokeOfTV * 2) + 'px';
+    embedStuff(video, 
+    widthOfTV - strokeOfTV, 
+    heightOfTV - strokeOfTV, 
+    xPosOfTV - (widthOfTV / 2.2) - (strokeOfTV / 2), (yPosOfTV / 2.0) - (strokeOfTV * 2));
 }
 
 // ------- layer 2: arches, spotlights, diplomas ---------
@@ -154,40 +154,51 @@ function drawSpotlightsUnderTVs() {
 function drawDiplomas() {
     let y1 = windowHeight * .35;
     let y2 = y1 * 1.32;
-    let w1 = widthOfTV*.5;
-    let w2 = widthOfTV*.4;
-    let h1 = heightOfTV*.5;
-    let h2 = heightOfTV*.4
 
     // REPLACE/REMOVE LATER
     fill(0,0,255);
     rectMode(CENTER);
 
-    //SMU -- open transcript PDF
-    rect(x1ForLayer2, y1, w1, h1); 
-    //TCC -- open picture of awards
-    rect(x1ForLayer2, y2, w2, h2); 
-    //CEFR -- placeholder?
-    rect(x2ForLayer2, y1, w1, h1); 
-    //DFP -- open cert website in new tab
-    rect(x2ForLayer2, y2, w2, h2); 
+    rect(x1ForLayer2, y1, widthOfTV*.5, heightOfTV*.5); //SMU -- open PDF of transcript
+    rect(x1ForLayer2, y2, widthOfTV*.4, heightOfTV*.4); //TCC -- open photo of awards
 
-// ---- layer 3: floor, tables, and about me sign --------
-function drawFloor() {
-    // code wooden floorboards
+    rect(x2ForLayer2, y1, widthOfTV*.5, heightOfTV*.5); //CEFR -- placeholder ?
+    rect(x2ForLayer2, y2, widthOfTV*.4, heightOfTV*.4); //DFP -- link to cert (in new tab?)
 }
 
-// draws two tables on the floor
+// ----- layer 3: floor, tables, and about me sign -------
+// draws a wooden floorboard pattern
+function drawFloor() {
+    line(0, windowHeight*.8, windowWidth, windowHeight*.8); // placeholder to separate wall from floor
+}
+
+// draws 2 tables and calls more functions to decorate them
 function drawTables() {
     stroke(255);
     rectMode(CORNERS);
 
-    line(0, windowHeight*.8, windowWidth, windowHeight*.8);
+    // left table
+    drawBooks();
 
-    
+    // right table
+    drawLaptop();
 }
 
-// draws books on top of left table that link to PDFs of writing samples
+// draws books on left table that link to writing sample PDFs
 function drawBooks() {
-    // ARHS research paper, FREN Japonaise Paris, ARHS visual analysis, another FREN sample
+    // book 1: ARHS research paper
+    // book 2: FREN Japonaise Paris
+    // book 3: ARHS visual analysis
+    // book 4: another FREN sample (argumentative?)
 }
+
+// draws laptop on the right table showing video of animation final
+function drawLaptop() {
+    // REPLACE VALUES
+    embedStuff("anim", 
+    widthOfTV*.66 - strokeOfTV, 
+    heightOfTV*.66 - strokeOfTV, 
+    windowWidth*.66, 
+    windowHeight*.66);
+}
+  
