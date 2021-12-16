@@ -1,4 +1,4 @@
-// declaration of variables for code TVs
+// declaration of variables for layer 1
 let widthOfTV;
 let heightOfTV;
 let xPosOfTV;
@@ -13,11 +13,9 @@ let x1ForLayer2;
 let x2ForLayer2;
 
 function setup() {
-    // createCanvas(windowWidth, windowHeight);
-    // background(255,0,0);
+    createCanvas(windowWidth, windowHeight);
 
-    // assignVariables(); // variables that rely on Window
-
+    // constants for layer 1
     strokeOfTV = 5;
     strokeOfSupports = 3;
     strokeDif = strokeOfTV - strokeOfSupports;
@@ -26,8 +24,7 @@ function setup() {
 function draw() {
     // console.log(pmouseX + ' ' + pmouseY); // for debug
     // noLoop(); // temp while TVs have an error
-    createCanvas(windowWidth, windowHeight);
-    background(255,0,0);
+    background(255,0,0); // TEMP, REMOVE LATER
 
     assignVariables(); // variables that rely on Window
     // layer 2
@@ -40,12 +37,17 @@ function draw() {
     drawTVsForCodeVideos(); // call last because of error
 }
 
+// allows the canvas to dynamically resize as the window does
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
 // --------------- universal functions -------------------
 // assignment of variables that rely on windowWidth and windowHeight
 function assignVariables() {
     // assignment of variables for code TVs
     widthOfTV = windowWidth/5.0; // this is the radius
-    heightOfTV = widthOfTV*.56;
+    heightOfTV = windowHeight/4.4; //5.6
     xPosOfTV = (widthOfTV * 1.2) - (widthOfTV / 1.6); // 1.2 2.0
     yPosOfTV = heightOfTV*.75;
 
@@ -92,8 +94,8 @@ function drawSupportsForTVs() {
     strokeWeight(strokeOfSupports);
 
     // draws 2 lines from center of rect border to top of window. +- values account for stroke values
-    line(x1 + strokeDif, yPosOfTV / 2.0, x1 + strokeDif/2, 0);
-    line(x2 - strokeDif, yPosOfTV / 2.0, x2 - strokeDif/2, 0);
+    line(x1 + strokeDif/2, yPosOfTV / 2.0 - strokeOfTV, x1 + strokeDif/2, 0);
+    line(x2 - strokeDif/2, yPosOfTV / 2.0 - strokeOfTV, x2 - strokeDif/2, 0);
 }
 
 // align and embed YT videos into the rects
