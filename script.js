@@ -16,31 +16,42 @@ function setup() {
     createCanvas(windowWidth, windowHeight);
     background(255,0,0);
 
+    assignVariables(); // variables that rely on Window
+
+    strokeOfTV = 5;
+    strokeOfSupports = 3;
+    strokeDif = strokeOfTV - strokeOfSupports;
+}
+
+function draw() {
+    // console.log(pmouseX + ' ' + pmouseY); // for debug
+    noLoop(); // temp while TVs have an error
+
+    // layer 2
+    drawArches();
+    drawSpotlightsUnderTVs();
+    drawDiplomas();
+    // layer 3
+    drawFloor();
+    // layer 1
+    drawTVsForCodeVideos(); // call last because of error
+}
+
+// --------------- universal functions -------------------
+// assignment of variables that rely on windowWidth and windowHeight
+function assignVariables() {
     // assignment of variables for code TVs
     widthOfTV = windowWidth/5.0; // this is the radius
     heightOfTV = widthOfTV*.56;
     xPosOfTV = (widthOfTV * 1.2) - (widthOfTV / 1.6); // 1.2 2.0
     yPosOfTV = heightOfTV*.75;
 
-    strokeOfTV = 5;
-    strokeOfSupports = 3;
-    strokeDif = strokeOfTV - strokeOfSupports;
-
+    // variables for layer 2
     x1ForLayer2 = windowWidth/3; //2.6 
     x2ForLayer2 = 2*windowWidth/3; //1.6
 }
 
-function draw() {
-    // console.log(pmouseX + ' ' + pmouseY);  
-    noLoop();
-
-    drawArches();
-    drawSpotlightsUnderTVs();
-    drawDiplomas();
-    drawTables();
-    drawTVsForCodeVideos(); // call last because of error
-}
-
+// generic overloaded function to call from other functions in order to embed iFrames (videos, PDFs, etc.)
 function embedStuff(id, width, height, left, top) {
     document.getElementById(id).width = width;
     document.getElementById(id).height = height;
@@ -168,12 +179,12 @@ function drawDiplomas() {
 
 // ----- layer 3: floor, tables, and about me sign -------
 // draws a wooden floorboard pattern
-function drawFloor() {
+function drawFloor() { // not called yet
     line(0, windowHeight*.8, windowWidth, windowHeight*.8); // placeholder to separate wall from floor
 }
 
 // draws 2 tables and calls more functions to decorate them
-function drawTables() {
+function drawTables() { // not called yet
     stroke(255);
     rectMode(CORNERS);
 
