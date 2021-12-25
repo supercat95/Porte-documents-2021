@@ -172,19 +172,20 @@ function drawDiplomas() {
     let xdfp = windowWidth / 1.595; // bottom right ~ 2W/3
     let y1 = windowHeight / 3.41; // top ~ 1/3H
     let y2 = windowHeight / 2.4; // bottom ~ H/2
-    let large = .5;
+    let large = .7;
     let small = .4;
 
     fill(0,0,255); // DELETE LATER
     rectMode(CORNER);
 
     //SMU -- open PDF of transcript
-    embedStuff("smu", 0, heightOfTV*.7, windowWidth / 3.4, windowHeight / 3.3);
+    embedStuff("smu", 0, heightOfTV*large, windowWidth / 3.4, windowHeight / 3.3);
     //rect(xsmu, y1, widthOfTV*large, heightOfTV*large); 
-    rect(xtcc, y2, widthOfTV*small, heightOfTV*small); //TCC -- open photo of awards
+    rect(xtcc, y2, widthOfTV*.4, heightOfTV*small); //TCC -- open photo of awards
 
-    rect(xcefr, y1, widthOfTV*large, heightOfTV*large); //CEFR -- placeholder ?
-    rect(xdfp, y2, widthOfTV*small, heightOfTV*small); //DFP -- link to cert (in new tab?)
+    rect(xcefr, y1, widthOfTV*.5, heightOfTV*large); //CEFR -- placeholder ?
+    embedStuff("dfp", 0, heightOfTV*.5, xdfp, y2);//DFP -- link to cert (in new tab?)
+    //rect(xdfp, y2, widthOfTV*small, heightOfTV*small);
 }
 
 // ----- layer 3: floor, tables, and about me sign -------
