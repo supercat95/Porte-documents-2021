@@ -1,5 +1,8 @@
 // I mention "layers" throughout my code, referring to the division of the composition into three horizontal sections: TVs, middle section, floor section
 
+// color array for drawBackground
+let bgcolors = [];
+
 // declaration of variables for layer 1
 let widthOfTV;
 let heightOfTV;
@@ -12,6 +15,14 @@ let strokeDif;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
+    
+    // colors for drawBackground
+    bgcolors[0] = (252,245,222); // light beige
+    bgcolors[1] = (238,232,188); // dark beige
+    bgcolors[2] = (240,236,206); // medium beige
+    bgcolors[3] = bgcolors[2];
+    bgcolors[4] = bgcolors[2];
+    bgcolors[5] = bgcolors[2];
 
     // constants for layer 1
     strokeOfTV = 5;
@@ -22,9 +33,8 @@ function setup() {
 function draw() {
     // console.log(pmouseX + ' ' + pmouseY); // for debug
     // noLoop(); // temp while TVs have an error
-    background(255,0,0); // TEMP, REMOVE LATER
-
-    assignVariables(); // variables that rely on Window
+    assignDynamicVariables(); // variables that rely on Window
+    drawBackground();
     // layer 2
     drawArches();
     drawSpotlightsUnderTVs();
@@ -41,13 +51,28 @@ function windowResized() {
 }
 
 // --------------- universal functions -------------------
-// assignment of variables that rely on windowWidth and windowHeight
-function assignVariables() {
+// assignment of dynamic variables that rely on windowWidth and windowHeight
+function assignDynamicVariables() {
     // assignment of variables for code TVs
     widthOfTV = windowWidth/5.0; // this is the radius
     heightOfTV = windowHeight/4.4; //5.6
     xPosOfTV = (widthOfTV * 1.2) - (widthOfTV / 1.6); // 1.2 2.0
     yPosOfTV = heightOfTV*.75;
+}
+
+function drawBackground() {
+    let ran;
+    let min = 7;
+    let max = 12;
+    background(bgcolors[2]);
+    for (let i = 0; i < windowWidth; i+=random(min,max*3)) {
+        for (let j = 0; j < windowHeight; j+=random(min,max*3)) {
+            ran = random(bgcolors);
+            fill(ran, random(50,80));
+            noStroke();
+            rect(i+random(-1*max,max), j+(-1*max,max), random(min, max),random(min,max), random(2,5));
+        }
+    }
 }
 
 // generic overloaded function to call from other functions in order to embed videos, PDFs, images, etc.
@@ -115,7 +140,7 @@ function embedCodeVideos(i) {
 function drawArches() {
     let x = widthOfTV / 3.0;
     let y = windowHeight*.75;
-    fill(0,255,0); // REPLACE LATER
+    fill(248,248,241); // slight off-white
     strokeWeight(3); // REPLACE LATER
 
     // horizontally spaces out the arches
