@@ -1,7 +1,17 @@
 // I mention "layers" throughout my code, referring to the division of the composition into three horizontal sections: TVs, middle section, floor section
 
-// color array for drawBackground
-let bgcolors = [];
+// arrays for background
+bgcolors = [];
+colorPerPixel = [];
+xLocation = [];
+yLocation = [];
+xSize = [];
+ySize = [];
+roundness = [];
+// pixel size range of colored squares
+let min = 10; 
+let max = 40;
+let spacing = max;
 
 // declaration of variables for layer 1
 let widthOfTV;
@@ -16,14 +26,12 @@ let strokeDif;
 function setup() {
     createCanvas(windowWidth, windowHeight);
     
-    // colors for drawBackground
-    bgcolors[0] = color(238,228,194); // light beige
-    bgcolors[1] = color(218,208,174); // dark beige
-    bgcolors[2] = color(228,218,184); // medium beige
-    // repetition makes [2] the dominant color
-    bgcolors[3] = bgcolors[2];
-    bgcolors[4] = bgcolors[2];
-    bgcolors[5] = bgcolors[2];
+    // colors for array for background
+    bgcolors[0] = color(238,228,194,130);
+    bgcolors[1] = color(218,208,174,130);
+    bgcolors[2] = color(228,218,184);
+  
+    initBackground();
 
     // constants for layer 1
     strokeOfTV = 5;
@@ -34,7 +42,7 @@ function setup() {
 function draw() {
     // console.log(pmouseX + ' ' + pmouseY); // for debug
     // noLoop(); // temp while TVs have an error
-    assignDynamicVariables(); // variables that rely on Window
+    assignDynamicVariables(); // variables that rely on Window CALL FIRST
     drawBackground();
     // layer 2
     drawArches();
@@ -61,23 +69,39 @@ function assignDynamicVariables() {
     yPosOfTV = heightOfTV*.75;
 }
 
-// fills the window with 3 shades of beige for texture
-function drawBackground() {
-    let ran;
-    // pixel size range of squares
-    let min = 7; 
-    let max = 12;
-
-    background(bgcolors[2]); // default color
-
-    for (let i = 0; i < windowWidth; i+=random(min,max*3)) {
-        for (let j = 0; j < windowHeight; j+=random(min,max*3)) {
-            ran = random(bgcolors);
-            fill(ran, 50);
-            noStroke();
-            rect(i+random(-1*max,max), j+(-1*max,max), random(min, max),random(min,max), random(2,5));
-        }
+// initializes randomized variables for background to have 3 colors as texture variety
+function initBackground() {
+  background(bgcolors[2]); // main color
+  
+  // turn 1d arrays into 2d arrays
+  for (let i = 0; i < windowWidth; i++) {
+    colorPerPixel[i] = [];
+    xLocation[i] = [];
+    yLocation[i] = [];
+    xSize[i] = [];
+    ySize[i] = [];
+    roundness[i] = [];
+    // populate 2d arrays with random values
+    for (let j = 0; j < windowHeight; j++) {
+      colorPerPixel[i][j] = random(bgcolors); // use for fill
+      xLocation[i][j] = random(0,windowWidth);
+      yLocation[i][j] = random(0,windowHeight);
+      xSize[i][j] = random(min, max);
+      ySize[i][j] = random(min, max);
+      roundness[i][j] = random(2,5);
     }
+  }
+}
+
+// draws additional colors on background as texture
+function drawBackground() {
+  noStroke();
+  for (let i = 0; i < windowWidth; i+=spacing) {
+    for (let j = 0; j < windowHeight; j+=spacing) {
+      fill(colorPerPixel[i][j]);
+      rect(xLocation[i][j], yLocation[i][j], xSize[i][j], ySize[i][j], roundness[i][j]);
+    }
+  }
 }
 
 // generic overloaded function to call from other functions in order to embed videos, PDFs, images, etc.
