@@ -17,9 +17,10 @@ function setup() {
     createCanvas(windowWidth, windowHeight);
     
     // colors for drawBackground
-    bgcolors[0] = (252,245,222); // light beige
-    bgcolors[1] = (238,232,188); // dark beige
-    bgcolors[2] = (240,236,206); // medium beige
+    bgcolors[0] = color(238,228,194); // light beige
+    bgcolors[1] = color(218,208,174); // dark beige
+    bgcolors[2] = color(228,218,184); // medium beige
+    // repetition makes [2] the dominant color
     bgcolors[3] = bgcolors[2];
     bgcolors[4] = bgcolors[2];
     bgcolors[5] = bgcolors[2];
@@ -60,15 +61,19 @@ function assignDynamicVariables() {
     yPosOfTV = heightOfTV*.75;
 }
 
+// fills the window with 3 shades of beige for texture
 function drawBackground() {
     let ran;
-    let min = 7;
+    // pixel size range of squares
+    let min = 7; 
     let max = 12;
-    background(bgcolors[2]);
+
+    background(bgcolors[2]); // default color
+
     for (let i = 0; i < windowWidth; i+=random(min,max*3)) {
         for (let j = 0; j < windowHeight; j+=random(min,max*3)) {
             ran = random(bgcolors);
-            fill(ran, random(50,80));
+            fill(ran, 50);
             noStroke();
             rect(i+random(-1*max,max), j+(-1*max,max), random(min, max),random(min,max), random(2,5));
         }
