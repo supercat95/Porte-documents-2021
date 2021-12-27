@@ -83,8 +83,8 @@ function draw() {
     drawSpotlightsUnderTVs();
     drawDiplomas();
     // layer 3
-    drawTable(windowWidth*0.25, windowHeight*0.85, PI/100, heightOfTV, widthOfTV*0.35, "books"); // left table
-    drawTable(windowWidth*0.75, windowHeight*0.85, 0, heightOfTV, widthOfTV*0.35, "laptop"); // right table
+    drawTable(windowWidth*0.27, windowHeight*0.83, PI/100, heightOfTV, widthOfTV*0.3, "books"); // left table
+    drawTable(windowWidth*0.72, windowHeight*0.85, PI/70, heightOfTV, widthOfTV*0.3, "laptop"); // right table
     // layer 1
     drawTVsForCodeVideos(); // call last because of error
 }
@@ -272,7 +272,11 @@ function drawDiplomas() {
 // ----- layer 3: tables and about me sign -------
 // overloaded function, called twice, to draw a table at given locations and sizes
 function drawTable(xPos, yPos, rotation, tableHeight, tableWidth, decor) { 
-    let legWidth = length/10;
+    let legWidth = tableWidth*0.12;
+    let legHeight = tableWidth*0.7;
+    let legxPos1 = tableHeight/2 - legWidth/2;
+    let legxPos2 = tableHeight/2;
+    let offset = 5;
 
     // USE THESE FILL VALUES FOR TEXTURE L8R https://www.color-hex.com/color-palette/5258
     // current colors from https://www.color-hex.com/color-palette/90559
@@ -283,23 +287,27 @@ function drawTable(xPos, yPos, rotation, tableHeight, tableWidth, decor) {
         noStroke();
             // legs 
             fill(134,98,71); // brown-gray
-            rect(0 - tableWidth+(tableHeight/6), legWidth, legWidth, tableWidth); // back left leg
-            rect(tableWidth-legWidth, legWidth, legWidth, tableWidth); // back right leg
-            rect(0 - tableWidth+(tableHeight/8), tableWidth, legWidth, tableWidth); // front left leg 
-            rect(tableWidth-(tableHeight/8), tableWidth, legWidth, tableWidth); // front right leg
+            rect(0 - legxPos1 + offset, legHeight/2, legWidth, tableWidth); // back left leg
+            rect(0 - legxPos1, legHeight, legWidth, tableWidth); // front left leg 
+            rect(legxPos2 - offset, legHeight, legWidth, tableWidth); // back right leg
+            rect(legxPos2, legHeight/2, legWidth, tableWidth); // front right leg
 
             // table surface
             fill(151,108,66); // brown-green
-            rect(2.5, 2.5, tableHeight+5, tableWidth+5); // table side
+            rect(offset/2, offset/2, tableHeight+offset, tableWidth+offset); // table side
             fill(175,128,85); // brown-beige
             rect(0, 0, tableHeight, tableWidth); // table top
 
             if (decor == "books") {
-                drawBooks(tableWidth, tableHeight, 0, 0, 255);
+                push();
+                    drawBooks(tableWidth, tableHeight, 0, 0, 255);
+                pop();
             } else if (decor == "laptop") {
-                fill(0,0,255);
-                ellipse(0,0,20,20);
-                //drawLaptop();
+                push();
+                    fill(0,0,255);
+                    ellipse(0,0,20,20);
+                    //drawLaptop();
+                pop();
             }
     pop();
 }
