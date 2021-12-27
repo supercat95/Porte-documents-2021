@@ -83,7 +83,8 @@ function draw() {
     drawSpotlightsUnderTVs();
     drawDiplomas();
     // layer 3
-    
+    drawTable(windowWidth*0.25, windowHeight*0.85, PI/100, widthOfTV*0.7, widthOfTV*0.4); // left table
+    drawTable(windowWidth*0.75, windowHeight*0.85, 0, widthOfTV*0.7, widthOfTV*0.4); // right table
     // layer 1
     drawTVsForCodeVideos(); // call last because of error
 }
@@ -262,27 +263,41 @@ function drawDiplomas() {
     let ysmu = windowHeight * 0.32;
     let ydfp = windowHeight * 0.33
 
-    //SMU -- open PDF of transcript in new window
+    //SMU -- opens PDF of transcript in new window
     embedStuff("smu", wsmu, 0, xsmu, ysmu); 
-    //DFP -- link to cert in new window
+    //DFP -- opens cert in new window
     embedStuff("dfp", wdfp, 0, xdfp, ydfp);
 }
 
 // ----- layer 3: tables and about me sign -------
-// draws 2 tables and calls more functions to decorate them
-function drawTables() { // not called yet
-    stroke(255);
-    rectMode(CORNERS);
+// overloaded function, called twice, to draw a table at given locations and sizes
+function drawTable(xPos, yPos, rotation, length, width) { 
+    let legWidth = length/10;
 
-    // left table
-    drawBooks();
+    // USE THESE FILL VALUES FOR TEXTURE L8R https://www.color-hex.com/color-palette/5258
+    // current colors from https://www.color-hex.com/color-palette/90559
+    push();
+        rectMode(CENTER);
+        translate(xPos, yPos);
+        rotate(rotation);
+        noStroke();
+            // legs 
+            fill(134,98,71); // brown-gray
+            rect(0 - width+(length/6), legWidth, legWidth, width); // back left leg
+            rect(width-legWidth, legWidth, legWidth, width); // back right leg
+            rect(0 - width+(length/8), width, legWidth, width); // front left leg 
+            rect(width-(length/8), width, legWidth, width); // front right leg
 
-    // right table
-    drawLaptop();
+            // table surface
+            fill(151,108,66); // brown-green
+            rect(2.5, 2.5, length+5, width+5); // table side
+            fill(175,128,85); // brown-beige
+            rect(0, 0, length, width); // table top
+    pop();
 }
 
-// draws books on left table that link to writing sample PDFs
-function drawBooks() {
+// recursive function to draw books on left table that link to writing sample PDFs
+function drawBooks() { // not called yet
     // book 1: ARHS research paper
     // book 2: FREN Japonaise Paris
     // book 3: ARHS visual analysis
@@ -290,7 +305,7 @@ function drawBooks() {
 }
 
 // draws laptop on the right table showing video of animation final
-function drawLaptop() {
+function drawLaptop() { // not called yet
     // REPLACE VALUES
     embedStuff("anim", 
     widthOfTV*.66 - strokeOfTV, 
