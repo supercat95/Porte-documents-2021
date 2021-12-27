@@ -323,11 +323,11 @@ function drawBooks(tableWidth, tableHeight, yPos, newyPos, green) { // add butto
     // book 4: another FREN sample (argumentative?)
 
     // binding
-    fill(0,255,0); // REPLACE VALUE *AND* GREEN VARIABLE
+    fill(0,green,0); // REPLACE VALUE *AND* GREEN VARIABLE
     rect(0, newyPos, bookWidth, bookHeight);
     // pages
     fill(250, 245, 235); // paper beige
-    rect(bookWidth*0.4, newyPos, bookWidth*0.2, bookHeight-4);
+    rect(bookWidth*0.42, newyPos, bookWidth*0.15, bookHeight-4);
 
     // decrements newyPos, bookWidth, and green
     if (newyPos >= yPos-(bookHeight*1.5)) { // 3 books
