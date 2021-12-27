@@ -1,17 +1,31 @@
 // I mention "layers" throughout my code, referring to the division of the composition into three horizontal sections: TVs, middle section, floor section
 
-// arrays for background
-bgcolors = [];
-colorPerPixel = [];
-xLocation = [];
-yLocation = [];
-xSize = [];
-ySize = [];
-roundness = [];
-// pixel size range of colored squares
-let min = 10; 
-let max = 40;
-let spacing = max;
+// arrays for wall background
+let wallPalette = [];
+let wallColors = [];
+let xPosWall = [];
+let yPosWall = [];
+let xSizeWall = [];
+let ySizeWall = [];
+let roundWall = [];
+// colored squares for wall background
+let minWall = 10; 
+let maxWall = 40;
+let spacing = maxWall;
+
+// arrays for floor background
+let floorPalette = [];
+let floorColors = [];
+let xPosFloor = [];
+let yPosFloor = [];
+let xSizeFloor = [];
+let ySizeFloor = [];
+let roundFloor = [];
+// colored squares for floor background
+let xMinFloor = 100;
+let xMaxFloor = 200;
+let yMinFloor = 5;
+let yMaxFloor = 20;
 
 // declaration of variables for layer 1
 let widthOfTV;
@@ -26,12 +40,22 @@ let strokeDif;
 function setup() {
     createCanvas(windowWidth, windowHeight);
     
-    // colors for array for background
-    bgcolors[0] = color(238,228,194,130);
-    bgcolors[1] = color(218,208,174,130);
-    bgcolors[2] = color(228,218,184);
+    // colors for array for wall 
+    wallPalette[0] = color(238,228,194,130); // light beige
+    wallPalette[1] = color(218,208,174,130); // dark beige
+    wallPalette[2] = color(228,218,184); // medium beige, main color
   
-    initBackground();
+    // floor palette from https://www.schemecolor.com/fancy-mahogany-wood.php
+    floorPalette[0] = color(52, 0, 6, 150); // choc brown
+    floorPalette[1] = color(101, 0, 11); // rosewood
+    floorPalette[2] = color(142, 51, 26, 200); // kobe
+    floorPalette[3] = color(192, 64, 0, 100); // mahogany
+    
+    // wall
+    initBackground(wallColors, xPosWall, yPosWall, xSizeWall, ySizeWall, 0, windowWidth, 0, windowHeight*0.8, wallPalette[2], wallPalette, minWall, maxWall, minWall, maxWall, roundWall);
+    
+    // floor
+    initBackground(floorColors, xPosFloor, yPosFloor, xSizeFloor, ySizeFloor, 0, windowWidth, windowHeight*0.8, windowHeight, floorPalette[1], floorPalette, xMinFloor, xMaxFloor, yMinFloor, yMaxFloor, roundFloor);
 
     // constants for layer 1
     strokeOfTV = 5;
@@ -43,13 +67,19 @@ function draw() {
     // console.log(pmouseX + ' ' + pmouseY); // for debug
     // noLoop(); // temp while TVs have an error
     assignDynamicVariables(); // variables that rely on Window CALL FIRST
-    drawBackground();
+    // wall
+    drawBackground(0, windowWidth, spacing, 0, windowHeight*0.8, spacing, wallColors, xPosWall, yPosWall, xSizeWall, ySizeWall, roundWall); 
+    // floor
+    drawBackground(xMinFloor, windowWidth-xMinFloor, xMinFloor, windowHeight*0.8, windowHeight, yMinFloor, floorColors, xPosFloor, yPosFloor, xSizeFloor, ySizeFloor, roundFloor);
+    // floor moulding thing
+    fill(238,228,194);
+    rect(0, windowHeight*0.8 - minWall, windowWidth, maxWall);
     // layer 2
     drawArches();
     drawSpotlightsUnderTVs();
     drawDiplomas();
     // layer 3
-    drawFloor();
+    
     // layer 1
     drawTVsForCodeVideos(); // call last because of error
 }
@@ -69,37 +99,38 @@ function assignDynamicVariables() {
     yPosOfTV = heightOfTV*.75;
 }
 
-// initializes randomized variables for background to have 3 colors as texture variety
-function initBackground() {
-  background(bgcolors[2]); // main color
+// initializes randomized variables for background (overloaded for both the wall and floor) to have multiple colors as texture variety
+function initBackground(colors, xPos, yPos, xSize, ySize, xStart, xEnd, yStart, yEnd, mainColor, palette, xMin, xMax, yMin, yMax, roundness) {
+  fill(mainColor); // main color
+  rect(xStart, yStart, xEnd, yEnd);
   
   // turn 1d arrays into 2d arrays
-  for (let i = 0; i < windowWidth; i++) {
-    colorPerPixel[i] = [];
-    xLocation[i] = [];
-    yLocation[i] = [];
+  for (let i = xStart; i < xEnd; i++) {
+    colors[i] = [];
+    xPos[i] = [];
+    yPos[i] = [];
     xSize[i] = [];
     ySize[i] = [];
     roundness[i] = [];
     // populate 2d arrays with random values
-    for (let j = 0; j < windowHeight; j++) {
-      colorPerPixel[i][j] = random(bgcolors); // use for fill
-      xLocation[i][j] = random(0,windowWidth);
-      yLocation[i][j] = random(0,windowHeight);
-      xSize[i][j] = random(min, max);
-      ySize[i][j] = random(min, max);
+    for (let j = yStart; j < yEnd; j++) {
+      colors[i][j] = random(palette); // use for fill
+      xPos[i][j] = random(xStart,xEnd);
+      yPos[i][j] = random(yStart,yEnd);
+      xSize[i][j] = random(xMin, xMax);
+      ySize[i][j] = random(yMin, yMax);
       roundness[i][j] = random(2,5);
     }
   }
 }
 
-// draws additional colors on background as texture
-function drawBackground() {
+// draws additional colors on background (overloaded for both wall and floor) as texture
+function drawBackground(xStart, xEnd, xInc, yStart, yEnd, yInc, colors, xPos, yPos, xSize, ySize, roundness) {
   noStroke();
-  for (let i = 0; i < windowWidth; i+=spacing) {
-    for (let j = 0; j < windowHeight; j+=spacing) {
-      fill(colorPerPixel[i][j]);
-      rect(xLocation[i][j], yLocation[i][j], xSize[i][j], ySize[i][j], roundness[i][j]);
+  for (let i = xStart; i < xEnd; i+=xInc) {
+    for (let j = yStart; j < yEnd; j+=yInc) {
+      fill(colors[i][j]);
+      rect(xPos[i][j], yPos[i][j], xSize[i][j], ySize[i][j], roundness[i][j]);
     }
   }
 }
@@ -242,12 +273,7 @@ function drawDiplomas() {
     //rect(xdfp, y2, widthOfTV*small, heightOfTV*small);
 }
 
-// ----- layer 3: floor, tables, and about me sign -------
-// draws a wooden floorboard pattern
-function drawFloor() { // not called yet
-    line(0, windowHeight*.8, windowWidth, windowHeight*.8); // placeholder to separate wall from floor
-}
-
+// ----- layer 3: tables and about me sign -------
 // draws 2 tables and calls more functions to decorate them
 function drawTables() { // not called yet
     stroke(255);
