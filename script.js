@@ -37,6 +37,10 @@ let strokeOfTV;
 let strokeOfSupports;
 let strokeDif;
 
+// variables for layer 2
+let x1ForLayer2;
+let x2ForLayer2;
+
 function setup() {
     createCanvas(windowWidth, windowHeight);
     
@@ -97,6 +101,9 @@ function assignDynamicVariables() {
     heightOfTV = windowHeight/4.4; //5.6
     xPosOfTV = (widthOfTV * 1.2) - (widthOfTV / 1.6); // 1.2 2.0
     yPosOfTV = heightOfTV*.75;
+    // variables for layer 2
+    x1ForLayer2 = windowWidth/3;
+    x2ForLayer2 = 2*windowWidth/3;
 }
 
 // initializes randomized variables for background (overloaded for both the wall and floor) to have multiple colors as texture variety
@@ -137,10 +144,10 @@ function drawBackground(xStart, xEnd, xInc, yStart, yEnd, yInc, colors, xPos, yP
 
 // generic overloaded function to call from other functions in order to embed videos, PDFs, images, etc.
 function embedStuff(id, width, height, left, top) {
-    if (width != 0) {
-        document.getElementById(id).width = width;
+    if (height != 0) {
+        document.getElementById(id).height = height;
     }
-    document.getElementById(id).height = height;
+    document.getElementById(id).width = width;
     document.getElementById(id).style.left = left + 'px';
     document.getElementById(id).style.top = top + 'px';
 }
@@ -231,8 +238,6 @@ function drawArches() {
 
 // draws 2 spotlights between the arches
 function drawSpotlightsUnderTVs() {
-    let x1ForLayer2 = windowWidth/3;
-    let x2ForLayer2 = 2*windowWidth/3;
     let y1 = windowHeight*.7;
     let y2 = y1 - (heightOfTV*.75);
     let rad = widthOfTV/4;
@@ -248,29 +253,19 @@ function drawSpotlightsUnderTVs() {
     triangle(x2ForLayer2,y1, x2ForLayer2-rad,y2, x2ForLayer2+rad,y2);
 }
 
-// draws 2 diplomas and 2 French certs over the spotlights
-// REPLACE RECTS WITH SCANS/REPS OF DIPS AND CERTS
+// draws SMU diploma and DFP cert over the spotlights
 function drawDiplomas() {
-    let xsmu = windowWidth / 3.53; // top left ~ 1/3W
-    let xcefr = windowWidth / 1.62; // top right ~ 2W/3
-    let xtcc = windowWidth / 3.405; // bottom left ~ 1/3W
-    let xdfp = windowWidth / 1.595; // bottom right ~ 2W/3
-    let y1 = windowHeight / 3.41; // top ~ 1/3H
-    let y2 = windowHeight / 2.4; // bottom ~ H/2
-    let large = .7;
-    let small = .4;
+    let wsmu = widthOfTV * 0.6;
+    let wdfp = widthOfTV * 0.7;
+    let xsmu = x1ForLayer2 - (wsmu * 0.45);
+    let xdfp = x2ForLayer2 - (wdfp * 0.45); 
+    let ysmu = windowHeight * 0.32;
+    let ydfp = windowHeight * 0.33
 
-    fill(0,0,255); // DELETE LATER
-    rectMode(CORNER);
-
-    //SMU -- open PDF of transcript
-    embedStuff("smu", 0, heightOfTV*large, windowWidth / 3.4, windowHeight / 3.3);
-    //rect(xsmu, y1, widthOfTV*large, heightOfTV*large); 
-    rect(xtcc, y2, widthOfTV*.4, heightOfTV*small); //TCC -- open photo of awards
-
-    rect(xcefr, y1, widthOfTV*.5, heightOfTV*large); //CEFR -- placeholder ?
-    embedStuff("dfp", 0, heightOfTV*.5, xdfp, y2);//DFP -- link to cert (in new tab?)
-    //rect(xdfp, y2, widthOfTV*small, heightOfTV*small);
+    //SMU -- open PDF of transcript in new window
+    embedStuff("smu", wsmu, 0, xsmu, ysmu); 
+    //DFP -- link to cert in new window
+    embedStuff("dfp", wdfp, 0, xdfp, ydfp);
 }
 
 // ----- layer 3: tables and about me sign -------
