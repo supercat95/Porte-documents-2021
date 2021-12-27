@@ -83,8 +83,8 @@ function draw() {
     drawSpotlightsUnderTVs();
     drawDiplomas();
     // layer 3
-    drawTable(windowWidth*0.25, windowHeight*0.85, PI/100, heightOfTV, widthOfTV*0.35); // left table
-    drawTable(windowWidth*0.75, windowHeight*0.85, 0, heightOfTV, widthOfTV*0.35); // right table
+    drawTable(windowWidth*0.25, windowHeight*0.85, PI/100, heightOfTV, widthOfTV*0.35, "books"); // left table
+    drawTable(windowWidth*0.75, windowHeight*0.85, 0, heightOfTV, widthOfTV*0.35, "laptop"); // right table
     // layer 1
     drawTVsForCodeVideos(); // call last because of error
 }
@@ -271,7 +271,7 @@ function drawDiplomas() {
 
 // ----- layer 3: tables and about me sign -------
 // overloaded function, called twice, to draw a table at given locations and sizes
-function drawTable(xPos, yPos, rotation, tableHeight, tableWidth) { 
+function drawTable(xPos, yPos, rotation, tableHeight, tableWidth, decor) { 
     let legWidth = length/10;
 
     // USE THESE FILL VALUES FOR TEXTURE L8R https://www.color-hex.com/color-palette/5258
@@ -294,7 +294,13 @@ function drawTable(xPos, yPos, rotation, tableHeight, tableWidth) {
             fill(175,128,85); // brown-beige
             rect(0, 0, tableHeight, tableWidth); // table top
 
-            drawBooks(tableWidth, tableHeight, 0, 0, 255);
+            if (decor == "books") {
+                drawBooks(tableWidth, tableHeight, 0, 0, 255);
+            } else if (decor == "laptop") {
+                fill(0,0,255);
+                ellipse(0,0,20,20);
+                //drawLaptop();
+            }
     pop();
 }
 
@@ -321,8 +327,8 @@ function drawBooks(tableWidth, tableHeight, yPos, newyPos, green) { // add butto
     }
 }
 
-// draws laptop on the right table showing video of animation final
-function drawLaptop() { // not called yet
+// draws laptop on the right table showing video of animation final. called from within drawTable()'s push/pop
+function drawLaptop() {
     // REPLACE VALUES
     embedStuff("anim", 
     widthOfTV*.66 - strokeOfTV, 
