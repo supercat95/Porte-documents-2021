@@ -83,8 +83,8 @@ function draw() {
     drawSpotlightsUnderTVs();
     drawDiplomas();
     // layer 3
-    drawTable(windowWidth*0.25, windowHeight*0.85, PI/100, widthOfTV*0.7, widthOfTV*0.4); // left table
-    drawTable(windowWidth*0.75, windowHeight*0.85, 0, widthOfTV*0.7, widthOfTV*0.4); // right table
+    drawTable(windowWidth*0.25, windowHeight*0.85, PI/100, heightOfTV, widthOfTV*0.35); // left table
+    drawTable(windowWidth*0.75, windowHeight*0.85, 0, heightOfTV, widthOfTV*0.35); // right table
     // layer 1
     drawTVsForCodeVideos(); // call last because of error
 }
@@ -271,7 +271,7 @@ function drawDiplomas() {
 
 // ----- layer 3: tables and about me sign -------
 // overloaded function, called twice, to draw a table at given locations and sizes
-function drawTable(xPos, yPos, rotation, length, width) { 
+function drawTable(xPos, yPos, rotation, tableHeight, tableWidth) { 
     let legWidth = length/10;
 
     // USE THESE FILL VALUES FOR TEXTURE L8R https://www.color-hex.com/color-palette/5258
@@ -283,25 +283,42 @@ function drawTable(xPos, yPos, rotation, length, width) {
         noStroke();
             // legs 
             fill(134,98,71); // brown-gray
-            rect(0 - width+(length/6), legWidth, legWidth, width); // back left leg
-            rect(width-legWidth, legWidth, legWidth, width); // back right leg
-            rect(0 - width+(length/8), width, legWidth, width); // front left leg 
-            rect(width-(length/8), width, legWidth, width); // front right leg
+            rect(0 - tableWidth+(tableHeight/6), legWidth, legWidth, tableWidth); // back left leg
+            rect(tableWidth-legWidth, legWidth, legWidth, tableWidth); // back right leg
+            rect(0 - tableWidth+(tableHeight/8), tableWidth, legWidth, tableWidth); // front left leg 
+            rect(tableWidth-(tableHeight/8), tableWidth, legWidth, tableWidth); // front right leg
 
             // table surface
             fill(151,108,66); // brown-green
-            rect(2.5, 2.5, length+5, width+5); // table side
+            rect(2.5, 2.5, tableHeight+5, tableWidth+5); // table side
             fill(175,128,85); // brown-beige
-            rect(0, 0, length, width); // table top
+            rect(0, 0, tableHeight, tableWidth); // table top
+
+            drawBooks(tableWidth, tableHeight, 0, 0, 255);
     pop();
 }
 
-// recursive function to draw books on left table that link to writing sample PDFs
-function drawBooks() { // not called yet
+// recursive function to draw books on left table that link to writing sample PDFs. called from within drawTable()'s push/pop
+function drawBooks(tableWidth, tableHeight, yPos, newyPos, green) { // add button system for books -> windows
+    let bookWidth = tableHeight*0.7;
+    let bookHeight = tableWidth*0.25;
+
     // book 1: ARHS research paper
     // book 2: FREN Japonaise Paris
     // book 3: ARHS visual analysis
     // book 4: another FREN sample (argumentative?)
+
+    // binding
+    fill(0,255,0); // REPLACE VALUE *AND* GREEN VARIABLE
+    rect(0, newyPos, bookWidth, bookHeight);
+    // pages
+    fill(250, 245, 235); // paper beige
+    rect(bookWidth*0.4, newyPos, bookWidth*0.2, bookHeight-4);
+
+    // decrements newyPos, bookWidth, and green
+    if (newyPos >= yPos-(bookHeight*1.5)) { // 3 books
+        drawBooks(tableWidth, tableHeight*.95, yPos, newyPos-=bookHeight, green-=20);
+    }
 }
 
 // draws laptop on the right table showing video of animation final
