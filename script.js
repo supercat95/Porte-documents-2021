@@ -55,7 +55,7 @@ function setup() {
     initBackground(wallColors, xPosWall, yPosWall, xSizeWall, ySizeWall, 0, windowWidth, 0, windowHeight*0.8, wallPalette[2], wallPalette, minWall, maxWall, minWall, maxWall, roundWall);
     
     // floor
-    initBackground(floorColors, xPosFloor, yPosFloor, xSizeFloor, ySizeFloor, 0, windowWidth, windowHeight*0.8, windowHeight, floorPalette[1], floorPalette, xMinFloor, xMaxFloor, yMinFloor, yMaxFloor, roundFloor);
+    initBackground(floorColors, xPosFloor, yPosFloor, xSizeFloor, ySizeFloor, -xMinFloor, windowWidth+xMinFloor, windowHeight*0.8, windowHeight, floorPalette[1], floorPalette, xMinFloor, xMaxFloor, yMinFloor, yMaxFloor, roundFloor);
 
     // constants for layer 1
     strokeOfTV = 5;
@@ -70,7 +70,7 @@ function draw() {
     // wall
     drawBackground(0, windowWidth, spacing, 0, windowHeight*0.8, spacing, wallColors, xPosWall, yPosWall, xSizeWall, ySizeWall, roundWall); 
     // floor
-    drawBackground(xMinFloor, windowWidth-xMinFloor, xMinFloor, windowHeight*0.8, windowHeight, yMinFloor, floorColors, xPosFloor, yPosFloor, xSizeFloor, ySizeFloor, roundFloor);
+    drawBackground(0, windowWidth, xMinFloor, windowHeight*0.8, windowHeight, yMinFloor, floorColors, xPosFloor, yPosFloor, xSizeFloor, ySizeFloor, roundFloor);
     // floor moulding thing
     fill(238,228,194);
     rect(0, windowHeight*0.8 - minWall, windowWidth, maxWall);
