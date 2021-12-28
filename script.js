@@ -76,8 +76,11 @@ function draw() {
     // floor
     drawBackground(0, windowWidth, xMinFloor, windowHeight*0.8, windowHeight, yMinFloor, floorColors, xPosFloor, yPosFloor, xSizeFloor, ySizeFloor, roundFloor);
     // floor moulding thing
-    fill(238,228,194);
-    rect(0, windowHeight*0.8 - minWall, windowWidth, maxWall);
+    push();
+        rectMode(CORNER);
+        fill(238,228,194);
+        rect(0, windowHeight*0.8 - minWall, windowWidth, maxWall);
+    pop();
     // layer 2
     drawArches();
     drawSpotlightsUnderTVs();
@@ -195,7 +198,7 @@ function embedCodeVideos(i) {
     if (i==0) { video = "enviro"; } 
     else if (i==1) { video = "feral"; }
     else if (i==2) { video = "galaxy"; }
-    // else if (i==3) { video = "?"; } // UPDATE LATER
+    else if (i==3) { video = "anim"; }
 
     embedStuff(video, 
     widthOfTV - strokeOfTV, 
