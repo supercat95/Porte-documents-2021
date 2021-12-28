@@ -304,9 +304,7 @@ function drawTable(xPos, yPos, rotation, tableHeight, tableWidth, decor) {
                 pop();
             } else if (decor == "laptop") {
                 push();
-                    fill(0,0,255);
-                    ellipse(0,0,20,20);
-                    //drawLaptop();
+                    //drawLaptop(tableWidth, tableHeight);
                 pop();
             }
     pop();
@@ -336,12 +334,22 @@ function drawBooks(tableWidth, tableHeight, yPos, newyPos, green) { // add butto
 }
 
 // draws laptop on the right table showing video of animation final. called from within drawTable()'s push/pop
-function drawLaptop() {
+function drawLaptop(tableHeight, tableWidth) {
+    let laptopWidth = tableWidth*0.6;
+    let laptopHeight = tableHeight*0.8;
+
+    fill(48,48,48); // same gray and tv frames
+    // monitor
+    push();
+        rotate(PI/36);
+        rect(tableWidth*0.1, 0-laptopHeight, laptopWidth, laptopHeight);
+    pop();
+    // keyboard
+    push();
+        rotate(PI/6);
+        rect(0, 0-laptopHeight*0.1, laptopWidth, laptopHeight);
+    pop();
     // REPLACE VALUES
-    embedStuff("anim", 
-    widthOfTV*.66 - strokeOfTV, 
-    heightOfTV*.66 - strokeOfTV, 
-    windowWidth*.66, 
-    windowHeight*.66);
+    //embedStuff("anim", widthOfTV*.66 - strokeOfTV, heightOfTV*.66 - strokeOfTV, windowWidth*.66, windowHeight*.66);
 }
   
