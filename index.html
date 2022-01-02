@@ -9,7 +9,8 @@
   </head>
   <body>
     <script src="script.js"></script>
-    <!-- videos -->
+
+    <!-------------------- videos ---------------------->
     <iframe class="codeVideos" id="enviro" width="56" height="32" src="https://www.youtube.com/embed/wCTVcycdYDg" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" controls="0" modestbranding="1" rel="0"></iframe>
 
     <iframe class="codeVideos" id="feral" width="56" height="32" src="https://www.youtube.com/embed/gVxkfisXDvQ" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" controls="0" modestbranding="1" rel="0"></iframe>
@@ -18,18 +19,62 @@
 
     <iframe class="codeVideos" id="anim" width="56" height="32" src="https://www.youtube.com/embed/vSRyosBOkeo" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" controls="0" modestbranding="1" rel="0"></iframe>
 
-    <!-- diplomas -->
+    <!----------------- diplomas ------------------------>
     <script>
         function popup(image) {
             let source;
+
             if (image = "smu") { source = "https://drive.google.com/file/d/18CkzW5U8BQUKOHKFuKLD4g4bneqBrAWD/view?usp=sharing"; }
             if (image = "dfp") { source = "https://www.SmartCertificate.com/SmartCertificate/?1%7cb8c85800-6c91-49b5-b49a-c97784249672%7cc12dc990-d8fd-4351-af48-41cedcbe7068"; }
+
             window.open(source, "", "height=700,width=800");
         }
     </script>
+
     <img class="diplomas" id="smu" src="https://pro2-bar-s3-cdn-cf1.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/c42e0b32-e911-4501-835c-43c0ed6a09de_rw_1920.jpg?h=997e05dba85b2b456b3f3d5b68ffcb72" width="100px" height="86px" onclick="popup(this);">
 
     <img class="diplomas" id="dfp" src="https://pro2-bar-s3-cdn-cf6.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/7729ca0d-d33b-4b94-81a7-537ccac691af_rw_1920.png?h=37b150ac699e2789c938543ad2ff7ef4" width="100px" height="86px" onclick="popup(this);">
 
+    <!------------------- images ------------------------>
+    <div class="slideshow">
+        <img class="glass" id="bonsai" src="https://pro2-bar-s3-cdn-cf1.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/28ba652d-65ac-49ca-ad0a-560e908387c5_rw_1920.JPEG?h=6b5e47c6ca33e01af026ef4be5cea27a" width="121px" height="153px">
+
+        <img class="glass" id="trees" src="https://pro2-bar-s3-cdn-cf6.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/0a21776f-06bc-4953-a620-dc68d65eb9f9_rw_3840.jpg?h=195b33ca9c5cde40e56d5e1114957d8b" width="305px" height="153px">
+
+        <img class="glass" id="cat-bowl" src="" width="px" height="px">
+    </div>
+
+    <div class="slideshow">
+        <img class="ceramics" id="bowl-in-bowl" src="https://pro2-bar-s3-cdn-cf.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/bc14f8b4-1301-46aa-957b-330fad6ce4bf_rw_1920.JPEG?h=262c39497dbc6b449cece92092529c0c" width="66px" height="88px">
+        
+        <img class="ceramics" id="vase" src="https://pro2-bar-s3-cdn-cf1.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/c18cf910-999b-463e-850c-71360f710fdf_rw_3840.JPEG?h=1bd3746ddb134cbd7d2271894234a55d" width="134px" height="100px">
+        
+        <img class="ceramics" id="pumpkin" src="https://pro2-bar-s3-cdn-cf1.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/98bdf42f-4a56-489c-bdfc-6862a4fb77a5_rw_3840.JPEG?h=3996abb1338a61276c399c1234449715" width="166px" height="125px">
+    </div>
+
+    <script>
+        var slideIndex = 0;
+        var slideId = ["glass", "ceramics"];
+
+        for (var i = 0; i < slideId.length; i++) {          playSlideshow(i); 
+        }
+
+        function playSlideshow(id) {
+            var slide = document.getElementsByClassName(slideId[id]);
+            
+            for (var i = 0; i < slide.length; i++) {
+                slide[i].style.display = "none";  
+            }
+            
+            slide[slideIndex].style.display = "block";  
+            
+            slideIndex++;
+            if (slideIndex == slide.length) { 
+                slideIndex = 0; 
+            }
+            
+            setTimeout(playSlideshow, 2000, id);
+        }       
+    </script>
   </body>
 </html>

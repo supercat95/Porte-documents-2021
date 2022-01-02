@@ -51,7 +51,7 @@ function setup() {
   
     // floor palette from https://www.schemecolor.com/fancy-mahogany-wood.php
     floorPalette[0] = color(52, 0, 6, 150); // choc brown
-    floorPalette[1] = color(101, 0, 11); // rosewood
+    floorPalette[1] = color(101, 0, 11); // rosewood, main color
     floorPalette[2] = color(142, 51, 26, 200); // kobe
     floorPalette[3] = color(192, 64, 0, 100); // mahogany
     
@@ -206,38 +206,59 @@ function embedCodeVideos(i) {
     xPosOfTV - (widthOfTV / 2.2) - (strokeOfTV / 2), (yPosOfTV / 2.0) - (strokeOfTV * 2));
 }
 
-// ------- layer 2: arches, spotlights, diplomas ---------
+// --- layer 2: arches, artwork, spotlights, diplomas ----
 // draws 3 arches underneath the code tvs 
 function drawArches() {
-    let x = widthOfTV / 3.0;
-    let y = windowHeight*.75;
+    let archx = widthOfTV / 3.0;
+    let archx1;
+    let archx2;
+    let archx3;
+    let archy = windowHeight*.75;
+    let archy1 = archy - windowHeight*0.20;
+    let archy2 = archy - windowHeight*0.35;
+    let archy3 = archy - windowHeight*0.43;
     fill(248,248,241); // slight off-white
     strokeWeight(3); // REPLACE LATER
 
     // horizontally spaces out the arches
     for (let i = 0; i < 3; i++) {
+        archx1 = archx + widthOfTV * 0.05;
+        archx2 = archx + widthOfTV * 0.20;
+        archx3 = archx + widthOfTV * 0.36;
         // vertices go clockwise from bottom left
         beginShape();
-            curveVertex(x, y);
-            curveVertex(x, y);
+            curveVertex(archx, archy);
+            curveVertex(archx, archy);
 
-            curveVertex(x + widthOfTV*.05, y - windowHeight*.20); // .05 .20
-            curveVertex(x + widthOfTV*.20, y - windowHeight*.35); //.20 .35
-            curveVertex(x + widthOfTV*.36, y - windowHeight*.43); //.36 .43
+            curveVertex(archx1, archy1); // .05 .20
+            curveVertex(archx2, archy2); //.20 .35
+            curveVertex(archx3, archy3); //.36 .43
 
-            curveVertex(x + widthOfTV*.50, y - windowHeight*.45); // center point .5 .45
+            curveVertex(archx + widthOfTV*.50, archy - windowHeight*.45); // center point .5 .45
 
-            curveVertex(x + widthOfTV*.64, y - windowHeight*.43); //.64 .43
-            curveVertex(x + widthOfTV*.80, y -windowHeight*.35); //.80 .35
-            curveVertex(x + widthOfTV*.95, y - windowHeight*.20); //.95 .20
+            curveVertex(archx+widthOfTV*.64, archy3); //.64 .43
+            curveVertex(archx+widthOfTV*.80, archy2); //.80 .35
+            curveVertex(archx+widthOfTV*.95, archy1); //.95 .20
 
-            curveVertex(x + widthOfTV, y);
-            curveVertex(x + widthOfTV, y);
+            curveVertex(archx + widthOfTV, archy);
+            curveVertex(archx + widthOfTV, archy);
 
-            line(x + widthOfTV, y, x, y);
+            line(archx + widthOfTV, archy, archx, archy);
         endShape();
-        x += windowWidth/3;
+        archx += windowWidth/3;
     }
+    drawArtwork();
+}
+
+function drawArtwork() {
+    /*
+    for (let i = 0; i < glass.length; i++) {
+        document.getElementById(id).height = windowHeight*0.35;
+        document.getElementById(id).width = 'auto';
+        document.getElementById(id).style.left = left + 'px';
+        document.getElementById(id).style.top = top + 'px';
+    }
+    */
 }
 
 // draws 2 spotlights between the arches
@@ -336,8 +357,8 @@ function drawBooks(tableWidth, tableHeight, yPos, newyPos, green) { // add butto
     }
 }
 
-// draws laptop on the right table showing video of animation final. called from within drawTable()'s push/pop
-function drawLaptop(tableHeight, tableWidth) {
+// draws about me on the right table. called from within drawTable()'s push/pop
+function drawLaptop(tableHeight, tableWidth) { // currently not called
     let laptopWidth = tableWidth*0.6;
     let laptopHeight = tableHeight*0.8;
 
@@ -352,7 +373,5 @@ function drawLaptop(tableHeight, tableWidth) {
         rotate(PI/6);
         rect(0, 0-laptopHeight*0.1, laptopWidth, laptopHeight);
     pop();
-    // REPLACE VALUES
-    //embedStuff("anim", widthOfTV*.66 - strokeOfTV, heightOfTV*.66 - strokeOfTV, windowWidth*.66, windowHeight*.66);
 }
   

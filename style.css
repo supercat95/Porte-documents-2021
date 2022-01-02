@@ -4,5 +4,16 @@ iframe, img {
 
 img {
     height: auto;
+}
+
+.diplomas {
     cursor: pointer;
+}
+
+.slideshow {
+    position: relative;
+}
+.glass, .ceramics { 
+    display: none;
+    margin: auto;
 }
