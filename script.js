@@ -11,7 +11,7 @@ let roundWall = [];
 // colored squares for wall background
 let minWall = 10; 
 let maxWall = 40;
-let spacing = maxWall;
+let spacingOfWall = maxWall;
 
 // arrays for floor background
 let floorPalette = [];
@@ -72,7 +72,7 @@ function draw() {
     // noLoop(); // temp while TVs have an error
     assignDynamicVariables(); // variables that rely on Window CALL FIRST
     // wall
-    drawBackground(0, windowWidth, spacing, 0, windowHeight*0.8, spacing, wallColors, xPosWall, yPosWall, xSizeWall, ySizeWall, roundWall); 
+    drawBackground(0, windowWidth, spacingOfWall, 0, windowHeight*0.8, spacingOfWall, wallColors, xPosWall, yPosWall, xSizeWall, ySizeWall, roundWall); 
     // floor
     drawBackground(0, windowWidth, xMinFloor, windowHeight*0.8, windowHeight, yMinFloor, floorColors, xPosFloor, yPosFloor, xSizeFloor, ySizeFloor, roundFloor);
     // floor moulding thing
@@ -82,7 +82,7 @@ function draw() {
         rect(0, windowHeight*0.8 - minWall, windowWidth, maxWall);
     pop();
     // layer 2
-    drawArches();
+    drawPedestals(); //drawArches();
     drawSpotlightsUnderTVs();
     drawDiplomas();
     // layer 3
@@ -208,7 +208,26 @@ function embedCodeVideos(i) {
 
 // --- layer 2: arches, artwork, spotlights, diplomas ----
 // draws 3 arches underneath the code tvs 
-function drawArches() {
+function drawPedestals() { // may replace drawArches()
+    let pedx = windowWidth/2;
+    let pedy = windowHeight/2;
+    let pedx1 = pedx;
+    let pedx2;
+    let pedy1 = pedy;
+    let pedy2;
+
+    push();
+    //rotate(90);
+    for(let i=pedx; i<pedx+286; i=i+4) {
+        pedx2 = i;
+        pedy2 = 7 * cos(pedx2/10) + 100;
+        line(pedx1, pedy1, pedx2, pedy2);
+        pedx1 = pedx2;
+        pedy1 = pedy2;
+    }
+    pop();
+}
+function drawArches() { // not called
     let archx = widthOfTV / 3.0;
     let archx1;
     let archx2;
