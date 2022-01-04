@@ -40,6 +40,11 @@ let strokeDif;
 // variables for layer 2
 let x1ForLayer2;
 let x2ForLayer2;
+let xstartWave;
+let xPosWave;
+let yPosWave;
+let widthOfPed = widthOfTV;
+let incWave;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -82,7 +87,7 @@ function draw() {
         rect(0, windowHeight*0.8 - minWall, windowWidth, maxWall);
     pop();
     // layer 2
-    drawPedestals(); //drawArches();
+    drawPedestals();
     drawSpotlightsUnderTVs();
     drawDiplomas();
     // layer 3
@@ -206,67 +211,51 @@ function embedCodeVideos(i) {
     xPosOfTV - (widthOfTV / 2.2) - (strokeOfTV / 2), (yPosOfTV / 2.0) - (strokeOfTV * 2));
 }
 
-// --- layer 2: arches, artwork, spotlights, diplomas ----
-// draws 3 arches underneath the code tvs 
-function drawPedestals() { // may replace drawArches()
-    let pedx = windowWidth/2;
-    let pedy = windowHeight/2;
-    let pedx1 = pedx;
-    let pedx2;
-    let pedy1 = pedy;
-    let pedy2;
-
-    push();
-    //rotate(90);
-    for(let i=pedx; i<pedx+286; i=i+4) {
-        pedx2 = i;
-        pedy2 = 7 * cos(pedx2/10) + 100;
-        line(pedx1, pedy1, pedx2, pedy2);
-        pedx1 = pedx2;
-        pedy1 = pedy2;
-    }
-    pop();
-}
-function drawArches() { // not called
-    let archx = widthOfTV / 3.0;
-    let archx1;
-    let archx2;
-    let archx3;
-    let archy = windowHeight*.75;
-    let archy1 = archy - windowHeight*0.20;
-    let archy2 = archy - windowHeight*0.35;
-    let archy3 = archy - windowHeight*0.43;
+// -- layer 2: pedestals, artwork, spotlights, diplomas --
+// draws 3 pedestals underneath the code tvs 
+function drawPedestals() { 
+    let xstartWave = windowWidth/3.0;
+    let xPosPed = xstartWave - widthOfPed/2;
     fill(248,248,241); // slight off-white
     strokeWeight(3); // REPLACE LATER
 
-    // horizontally spaces out the arches
-    for (let i = 0; i < 3; i++) {
-        archx1 = archx + widthOfTV * 0.05;
-        archx2 = archx + widthOfTV * 0.20;
-        archx3 = archx + widthOfTV * 0.36;
-        // vertices go clockwise from bottom left
-        beginShape();
-            curveVertex(archx, archy);
-            curveVertex(archx, archy);
+    // horizontally spaces out the pedestals
+    //for (let i = 0; i < 3; i++) {
+        drawPedestal(xPosPed, xstartWave);
+        //xPosPed += windowWidth/3.0;
+    //}
+    //drawArtwork();
+}
 
-            curveVertex(archx1, archy1); // .05 .20
-            curveVertex(archx2, archy2); //.20 .35
-            curveVertex(archx3, archy3); //.36 .43
+function drawPedestal(xPosPed, xstartWave) {
+  push();
+  fill(248,248,241); // slight off-white
+  beginShape();
+  // left wave
+  for(incWave=xstartWave; incWave<xstartWave+widthOfTV; incWave=incWave+4) {
+    drawWave(7, xPosWave);
+  }
+  vertex(yPosWave+cos(widthOfPed), xPosWave); // bottom line
+  // right wave
+  for (incWave=xstartWave+widthOfTV-2; incWave>xstartWave-2; incWave=incWave-4) {
+    drawWave(-7, xPosWave, xstartWave);
+  }
+  endShape(CLOSE); // top line
+  pop();
+}
 
-            curveVertex(archx + widthOfTV*.50, archy - windowHeight*.45); // center point .5 .45
-
-            curveVertex(archx+widthOfTV*.64, archy3); //.64 .43
-            curveVertex(archx+widthOfTV*.80, archy2); //.80 .35
-            curveVertex(archx+widthOfTV*.95, archy1); //.95 .20
-
-            curveVertex(archx + widthOfTV, archy);
-            curveVertex(archx + widthOfTV, archy);
-
-            line(archx + widthOfTV, archy, archx, archy);
-        endShape();
-        archx += windowWidth/3;
+function drawWave(co, xPosWave, xstartWave) {
+    xPosWave = incWave;
+    yPosWave = co * cos(xPosWave/10) + xstartWave;
+    push();
+    if (co < 0) {
+        widthOfPed = widthOfTV;
+    } else { 
+        widthOfPed = 0; 
     }
-    drawArtwork();
+    translate(widthOfPed, 0); // doesn't do anything?
+    vertex(yPosWave, xPosWave);
+    pop();
 }
 
 function drawArtwork() {
