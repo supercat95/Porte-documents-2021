@@ -113,6 +113,7 @@ function assignDynamicVariables() {
     // variables for layer 2
     x1ForLayer2 = windowWidth/3;
     x2ForLayer2 = 2*windowWidth/3;
+    xstartWave = widthOfTV/3.0;
 }
 
 // initializes randomized variables for background (overloaded for both the wall and floor) to have multiple colors as texture variety
@@ -214,7 +215,6 @@ function embedCodeVideos(i) {
 // -- layer 2: pedestals, artwork, spotlights, diplomas --
 // draws 3 pedestals underneath the code tvs 
 function drawPedestals() { 
-    let xstartWave = windowWidth/3.0;
     let xPosPed = xstartWave - widthOfPed/2;
     fill(248,248,241); // slight off-white
     strokeWeight(3); // REPLACE LATER
