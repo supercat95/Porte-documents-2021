@@ -40,9 +40,10 @@ let strokeDif;
 // variables for layer 2
 let x1ForLayer2;
 let x2ForLayer2;
-let xstartWave;
-let xPosWave;
-let yPosWave;
+let xstartWave; // x coord, may rename
+let ystartWave; // y coord, may rename
+let xPosWave; // for the wave trig, may rename
+let yPosWave; // for the wave trig, may rename
 let widthOfPed;
 let heightOfPed;
 let incWave;
@@ -114,8 +115,9 @@ function assignDynamicVariables() {
     // variables for layer 2
     x1ForLayer2 = windowWidth/3;
     x2ForLayer2 = 2*windowWidth/3;
-    xstartWave = widthOfTV/3.0;
     widthOfPed = widthOfTV;
+    xstartWave = widthOfTV/3.0 - widthOfPed/4;
+    ystartWave = windowHeight*0.83 - heightOfPed;
     heightOfPed = windowHeight/3;
 }
 
@@ -217,47 +219,49 @@ function embedCodeVideos(i) {
 
 // -- layer 2: pedestals, artwork, spotlights, diplomas --
 // draws 3 pedestals underneath the code tvs 
-function drawPedestals() { 
-    let xPosPed = xstartWave - widthOfPed/2;
-    fill(248,248,241); // slight off-white
+function drawPedestals() {
+    //fill(248,248,241); // slight off-white
+    noFill();
+    stroke(0);
     strokeWeight(3); // REPLACE LATER
 
     // horizontally spaces out the pedestals
     //for (let i = 0; i < 3; i++) {
-        drawPedestal(xPosPed, xstartWave);
+        push();
+        translate(xstartWave, ystartWave);
+        drawPedestal();
+        pop();
         //xPosPed += windowWidth/3.0;
     //}
     //drawArtwork();
 }
 
-function drawPedestal(xPosPed, xstartWave) {
+function drawPedestal() {
   push();
-  fill(248,248,241); // slight off-white
   beginShape();
   // left wave
   for(incWave=xstartWave; incWave<xstartWave+heightOfPed; incWave=incWave+4) {
-    drawWave(7, xPosWave);
+    drawWave(7);
   }
-  vertex(yPosWave+cos(widthOfPed), xPosWave); // bottom line
+  //vertex(yPosWave+cos(widthOfPed), xPosWave); // bottom line
   // right wave
   for (incWave=xstartWave+heightOfPed-2; incWave>xstartWave-2; incWave=incWave-4) {
-    drawWave(-7, xPosWave, xstartWave);
+    //drawWave(-7);
   }
-  endShape(CLOSE); // top line
+  endShape();//(CLOSE); // top line
   pop();
 }
 
-function drawWave(co, xPosWave, xstartWave) {
+function drawWave(co) {
     xPosWave = incWave;
     yPosWave = co * cos(xPosWave/10) + xstartWave;
     push();
-    if (co < 0) {
+    if (co < 0) { // right wave
         widthOfPed = widthOfTV;
-    } else { 
+    } else {  // left wave
         widthOfPed = 0; 
     }
-    translate(widthOfPed, 0); // doesn't do anything?
-    vertex(yPosWave, xPosWave);
+    vertex(yPosWave + widthOfPed, xPosWave);
     pop();
 }
 
