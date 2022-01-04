@@ -46,7 +46,6 @@ let xPosWave; // for the wave trig, may rename
 let yPosWave; // for the wave trig, may rename
 let widthOfPed;
 let heightOfPed;
-let incWave;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -240,12 +239,12 @@ function drawPedestal() {
   push();
   beginShape();
   // left wave
-  for(incWave=xstartWave; incWave<xstartWave+heightOfPed; incWave=incWave+4) {
+  for(xPosWave=xstartWave; xPosWave<xstartWave+heightOfPed; xPosWave=xPosWave+4) {
     drawWave(7);
   }
   //vertex(yPosWave+cos(widthOfPed), xPosWave); // bottom line
   // right wave
-  for (incWave=xstartWave+heightOfPed-2; incWave>xstartWave-2; incWave=incWave-4) {
+  for (xPosWave=xstartWave+heightOfPed-2; xPosWave>xstartWave-2; xPosWave=xPosWave-4) {
     //drawWave(-7);
   }
   endShape();//(CLOSE); // top line
@@ -253,7 +252,6 @@ function drawPedestal() {
 }
 
 function drawWave(co) {
-    xPosWave = incWave;
     yPosWave = co * cos(xPosWave/10) + xstartWave;
     push();
     if (co < 0) { // right wave
