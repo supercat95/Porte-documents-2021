@@ -43,7 +43,8 @@ let x2ForLayer2;
 let xstartWave;
 let xPosWave;
 let yPosWave;
-let widthOfPed = widthOfTV;
+let widthOfPed;
+let heightOfPed;
 let incWave;
 
 function setup() {
@@ -114,6 +115,8 @@ function assignDynamicVariables() {
     x1ForLayer2 = windowWidth/3;
     x2ForLayer2 = 2*windowWidth/3;
     xstartWave = widthOfTV/3.0;
+    widthOfPed = widthOfTV;
+    heightOfPed = windowHeight/3;
 }
 
 // initializes randomized variables for background (overloaded for both the wall and floor) to have multiple colors as texture variety
@@ -232,12 +235,12 @@ function drawPedestal(xPosPed, xstartWave) {
   fill(248,248,241); // slight off-white
   beginShape();
   // left wave
-  for(incWave=xstartWave; incWave<xstartWave+widthOfTV; incWave=incWave+4) {
+  for(incWave=xstartWave; incWave<xstartWave+heightOfPed; incWave=incWave+4) {
     drawWave(7, xPosWave);
   }
   vertex(yPosWave+cos(widthOfPed), xPosWave); // bottom line
   // right wave
-  for (incWave=xstartWave+widthOfTV-2; incWave>xstartWave-2; incWave=incWave-4) {
+  for (incWave=xstartWave+heightOfPed-2; incWave>xstartWave-2; incWave=incWave-4) {
     drawWave(-7, xPosWave, xstartWave);
   }
   endShape(CLOSE); // top line
