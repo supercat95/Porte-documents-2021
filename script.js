@@ -228,17 +228,15 @@ function drawPedestals() {
     for (let i = 0; i < heightsOfPeds.length; i++) {
         ystartWave = windowHeight*0.8 - heightsOfPeds[0];
         push();
-        translate(xstartWave, ystartWave);
+        translate(xstartWave + (i*windowWidth/2.5), ystartWave);
         drawPedestal(heightsOfPeds[0]);
         pop();
-        xstartWave += windowWidth/3.0;
     }
     pop();
     //drawArtwork();
 }
 
 function drawPedestal(heightOfPed) {
-  push();
   beginShape();
   // left wave
   for(xPosWave=xstartWave; xPosWave<xstartWave+heightOfPed; xPosWave=xPosWave+4) {
@@ -250,19 +248,16 @@ function drawPedestal(heightOfPed) {
     drawWave(-7);
   }
   endShape(CLOSE); // top line
-  pop();
 }
 
 function drawWave(co) {
     yPosWave = co * cos(xPosWave/10) + xstartWave;
-    push();
     if (co < 0) { // right wave
         widthOfPed = widthOfTV/3;
     } else {  // left wave
         widthOfPed = 0; 
     }
     vertex(yPosWave + widthOfPed, xPosWave);
-    pop();
 }
 
 function drawArtwork() {
