@@ -1,8 +1,9 @@
-iframe, img {
+iframe {
     position: absolute;
 }
 
 img {
+    position: absolute;
     height: auto;
 }
 
@@ -10,10 +11,7 @@ img {
     cursor: pointer;
 }
 
-.slideshow {
-    position: relative;
-}
-.glass, .ceramics { 
+.glass, .ceramics {
     display: none;
-    margin: auto;
+    vertical-align: middle;
 }

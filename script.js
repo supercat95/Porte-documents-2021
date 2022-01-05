@@ -115,7 +115,6 @@ function assignDynamicVariables() {
     x1ForLayer2 = windowWidth/3;
     x2ForLayer2 = 2*windowWidth/3;
     widthOfPed = widthOfTV/3.0;
-    xstartWave = widthOfTV/3.0 - widthOfPed/2;
     heightsOfPeds[0] = windowHeight*0.2;
     heightsOfPeds[1] = windowHeight*0.3;
     heightsOfPeds[2] = windowHeight*0.2;
@@ -226,14 +225,15 @@ function drawPedestals() {
 
     // horizontally spaces out the pedestals
     for (let i = 0; i < heightsOfPeds.length; i++) {
-        ystartWave = windowHeight*0.8 - heightsOfPeds[0];
+        xstartWave = widthOfTV/3.0 - widthOfPed/2;
+        ystartWave = windowHeight*0.8 - heightsOfPeds[i];
         push();
         translate(xstartWave + (i*windowWidth/2.5), ystartWave);
-        drawPedestal(heightsOfPeds[0]);
+        drawPedestal(heightsOfPeds[i]);
+        drawArtwork(i);
         pop();
     }
     pop();
-    //drawArtwork();
 }
 
 function drawPedestal(heightOfPed) {
@@ -260,15 +260,13 @@ function drawWave(co) {
     vertex(yPosWave + widthOfPed, xPosWave);
 }
 
-function drawArtwork() {
-    /*
-    for (let i = 0; i < glass.length; i++) {
-        document.getElementById(id).height = windowHeight*0.35;
-        document.getElementById(id).width = 'auto';
-        document.getElementById(id).style.left = left + 'px';
-        document.getElementById(id).style.top = top + 'px';
-    }
-    */
+function drawArtwork(i) {
+    let slideshow;
+    if (i == 0) { slideshow = "glass"; }
+    else if (i == 1 ) { slideshow = "ceramics"; }
+        document.getElementsByClassName(slideshow).width = widthOfTV/2 + 'px'; // can adjust l8r
+        document.getElementsByClassName(slideshow).left = xstartWave + (i*windowWidth/2.5) + 'px'; //xstartWave + 'px'; // change to center on pedestal
+        document.getElementsByClassName(slideshow).top = ystartWave + 'px'; // change to center on pedestal
 }
 
 // draws 2 spotlights between the arches
