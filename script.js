@@ -158,12 +158,13 @@ function drawBackground(xStart, xEnd, xInc, yStart, yEnd, yInc, colors, xPos, yP
 
 // generic overloaded function to call from other functions in order to embed videos, PDFs, images, etc.
 function embedStuff(id, width, height, left, top) {
+    let embed = document.getElementById(id);
     if (height != 0) {
-        document.getElementById(id).height = height;
+        embed.height = height;
     }
-    document.getElementById(id).width = width;
-    document.getElementById(id).style.left = left + 'px';
-    document.getElementById(id).style.top = top + 'px';
+    embed.width = width;
+    embed.style.left = left + 'px';
+    embed.style.top = top + 'px';
 }
 
 // ------------------ layer 1: TVs ----------------------
