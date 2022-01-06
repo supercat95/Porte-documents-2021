@@ -54,7 +54,7 @@
 
     <script>
         var slideIndex = 0;
-        var slideId = ["ceramics"];//, "glass"];
+        var slideId = ["glass", "ceramics"];
 
         for (var i = 0; i < slideId.length; i++) {          playSlideshow(i); 
         }
@@ -64,7 +64,7 @@
             
             // default state for images is not shown
             for (var i = 0; i < slide.length; i++) {
-                //slide[i].style.display = "none";  
+                slide[i].style.display = "none";  
             }
             
             // images are shown one at a time

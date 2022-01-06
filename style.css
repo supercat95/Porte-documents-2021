@@ -13,13 +13,5 @@ img {
 
 .slideshow {
     position: absolute;
-
     vertical-align: middle;
-}
-
-.ceramics {
-    display: block;
-}
-.glass {
-    display: none;
 }

@@ -261,18 +261,17 @@ function drawWave(co) {
     vertex(yPosWave + widthOfPed, xPosWave);
 }
 
-function drawArtwork(i) {
-    let slideIndex = 0;
-    let slideId = [];
-    if (i == 0) { slideID = [""]; }
-    else if (i == 1) { slideId = ["bowl-in-bowl", "vase", "pumpkin"]; }
-    else if (i == 2) { slideId = [""]; }
-    for (let i = 0; i < slideId.length; i++ ) { 
-        embedStuff(slideId[i], widthOfTV*0.5, 0, xstartWave + (windowWidth/2.5), ystartWave);
-    }
+function drawArtwork(slideshow) {
+    let slideIds = [];
+    if (slideshow == 0) { slideIds = ["bonsai", "trees", "cat-bowl"]; }
+    else if (slideshow == 1) { slideIds = ["bowl-in-bowl", "vase", "pumpkin"]; }
+    else if (slideshow == 2) { slideIds = [""]; }
+    for (let i = 0; i < slideIds.length; i++ ) { 
+        embedStuff(slideIds[i], widthOfTV*0.5, 0, xstartWave + (slideshow * windowWidth/2.5), ystartWave);
+    } // change left and top to be centered on pedestals
 }
 
-// draws 2 spotlights between the arches
+// draws 2 spotlights between the pedestals
 function drawSpotlightsUnderTVs() {
     let y1 = windowHeight*.7;
     let y2 = y1 - (heightOfTV*.75);
