@@ -54,7 +54,7 @@
 
     <script>
         var slideIndex = 0;
-        var slideId = ["glass", "ceramics"];
+        var slideId = ["ceramics"];//, "glass"];
 
         for (var i = 0; i < slideId.length; i++) {          playSlideshow(i); 
         }
@@ -62,17 +62,21 @@
         function playSlideshow(id) {
             var slide = document.getElementsByClassName(slideId[id]);
             
+            // default state for images is not shown
             for (var i = 0; i < slide.length; i++) {
-                slide[i].style.display = "none";  
+                //slide[i].style.display = "none";  
             }
             
+            // images are shown one at a time
             slide[slideIndex].style.display = "block";  
             
             slideIndex++;
+            // loop through images
             if (slideIndex == slide.length) { 
                 slideIndex = 0; 
             }
             
+            // delay between changes
             setTimeout(playSlideshow, 2000, id);
         }       
     </script>

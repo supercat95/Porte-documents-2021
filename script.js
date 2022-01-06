@@ -262,15 +262,14 @@ function drawWave(co) {
 }
 
 function drawArtwork(i) {
-    let slides;
-    if (i == 0) { slides = "glass"; }
-    else if (i == 1) { slides = "ceramics"; }
-    else if (i == 2) { slides = ""; }
-    let slideshow = document.getElementsByClassName(slides);
-
-    slideshow.width = widthOfTV/2 + 'px'; // can adjust l8r
-    slideshow.left = xstartWave + (i*windowWidth/2.5) + 'px'; // change to center on pedestal
-    slideshow.top = ystartWave + 'px'; // change to center on pedestal
+    let slideIndex = 0;
+    let slideId = [];
+    if (i == 0) { slideID = [""]; }
+    else if (i == 1) { slideId = ["bowl-in-bowl", "vase", "pumpkin"]; }
+    else if (i == 2) { slideId = [""]; }
+    for (let i = 0; i < slideId.length; i++ ) { 
+        embedStuff(slideId[i], widthOfTV*0.5, 0, xstartWave + (i*windowWidth/2.5), ystartWave);
+    }
 }
 
 // draws 2 spotlights between the arches
