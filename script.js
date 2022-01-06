@@ -222,7 +222,6 @@ function embedCodeVideos(i) {
 function drawPedestals() {
     push();
     fill(248,248,241); // slight off-white
-    strokeWeight(3); // REPLACE LATER
 
     // horizontally spaces out the pedestals
     for (let i = 0; i < heightsOfPeds.length; i++) {
@@ -231,6 +230,7 @@ function drawPedestals() {
         push();
         translate(xstartWave + (i*windowWidth/2.5), ystartWave);
         drawPedestal(heightsOfPeds[i]);
+
         drawArtwork(i);
         pop();
     }
@@ -267,8 +267,8 @@ function drawArtwork(slideshow) {
     else if (slideshow == 1) { slideIds = ["bowl-in-bowl", "vase", "pumpkin"]; }
     else if (slideshow == 2) { slideIds = [""]; }
     for (let i = 0; i < slideIds.length; i++ ) { 
-        embedStuff(slideIds[i], widthOfTV*0.5, 0, xstartWave + (slideshow * windowWidth/2.5), ystartWave);
-    } // change left and top to be centered on pedestals
+        embedStuff(slideIds[i], widthOfTV*0.5, 0, xstartWave + (slideshow * windowWidth/2.5) + (widthOfTV*0.08), ystartWave - (widthOfTV*0.25));
+    } // change top to be centered on pedestals
 }
 
 // draws 2 spotlights between the pedestals
