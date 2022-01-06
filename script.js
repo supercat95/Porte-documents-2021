@@ -268,7 +268,7 @@ function drawArtwork(i) {
     else if (i == 1) { slideId = ["bowl-in-bowl", "vase", "pumpkin"]; }
     else if (i == 2) { slideId = [""]; }
     for (let i = 0; i < slideId.length; i++ ) { 
-        embedStuff(slideId[i], widthOfTV*0.5, 0, xstartWave + (i*windowWidth/2.5), ystartWave);
+        embedStuff(slideId[i], widthOfTV*0.5, 0, xstartWave + (windowWidth/2.5), ystartWave);
     }
 }
 
