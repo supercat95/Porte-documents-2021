@@ -265,7 +265,7 @@ function drawArtwork(slideshow) {
     let slideIds = [];
     if (slideshow == 0) { slideIds = ["bonsai", "mulberry", "sakura"]; }
     else if (slideshow == 1) { slideIds = ["bowl-in-bowl", "vase", "pumpkin"]; }
-    else if (slideshow == 2) { slideIds = [""]; }
+    //else if (slideshow == 2) { slideIds = [""]; }
     for (let i = 0; i < slideIds.length; i++ ) { 
         embedStuff(slideIds[i], widthOfTV*0.5, 0, xstartWave + (slideshow * windowWidth/2.5) + (widthOfTV*0.08), ystartWave - (widthOfTV*0.25));
     } // change top to be centered on pedestals
