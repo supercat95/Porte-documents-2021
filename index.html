@@ -56,13 +56,13 @@
 
     <script>
         var slideIndex = 0;
-        var slideId = ["glass", "ceramics"];
+        var slideClass = ["glass", "ceramics"];
 
-        for (var i = 0; i < slideId.length; i++) {          playSlideshow(i); 
+        for (var i = 0; i < slideClass.length; i++) {          playSlideshow(i); 
         }
 
-        function playSlideshow(id) {
-            var slide = document.getElementsByClassName(slideId[id]);
+        function playSlideshow(slides) {
+            var slide = document.getElementsByClassName(slideClass[slides]);
             
             // default state for images is not shown
             for (var i = 0; i < slide.length; i++) {
@@ -79,7 +79,7 @@
             }
             
             // delay between changes
-            setTimeout(playSlideshow, 2000, id);
+            setTimeout(playSlideshow, 2000, slides);
         }       
     </script>
   </body>
