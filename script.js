@@ -218,7 +218,7 @@ function embedCodeVideos(i) {
 }
 
 // -- layer 2: pedestals, artwork, spotlights, diplomas --
-// draws 3 pedestals underneath the code tvs 
+// draws 3 pedestals underneath the code tvs and places artwork on top 
 function drawPedestals() {
     push();
     fill(248,248,241); // slight off-white
@@ -231,12 +231,13 @@ function drawPedestals() {
         translate(xstartWave + (i*windowWidth/2.5), ystartWave);
         drawPedestal(heightsOfPeds[i]);
 
-        drawArtwork(i);
+        embedArtwork(i);
         pop();
     }
     pop();
 }
 
+// draws a pedestal using two drawWave() and a line
 function drawPedestal(heightOfPed) {
   beginShape();
   // left wave
@@ -251,6 +252,7 @@ function drawPedestal(heightOfPed) {
   endShape(CLOSE); // top line
 }
 
+// draws a left and right wave
 function drawWave(co) {
     yPosWave = co * cos(xPosWave/10) + xstartWave;
     if (co < 0) { // right wave
@@ -261,7 +263,8 @@ function drawWave(co) {
     vertex(yPosWave + widthOfPed, xPosWave);
 }
 
-function drawArtwork(slideshow) {
+// embeds artwork 
+function embedArtwork(slideshow) {
     let slideIds = [];
     if (slideshow == 0) { slideIds = ["bonsai", "mulberry", "sakura"]; }
     else if (slideshow == 1) { slideIds = ["bowl-in-bowl", "vase", "pumpkin"]; }
