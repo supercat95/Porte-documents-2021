@@ -115,7 +115,7 @@ function assignDynamicVariables() {
     x1ForLayer2 = windowWidth/3;
     x2ForLayer2 = 2*windowWidth/3;
     widthOfPed = widthOfTV/3.0;
-    heightOfPed = windowHeight*0.25;
+    heightOfPed = windowHeight*0.2;
     xstartWave = widthOfTV/3.0 - widthOfPed/2;
     ystartWave = windowHeight*0.8 - heightOfPed;
 }
@@ -261,18 +261,18 @@ function drawWave(co) {
     vertex(yPosWave + widthOfPed, xPosWave);
 }
 
-// embeds artwork 
+// embeds artwork on the pedestals based off art type
 function embedArtwork(slideshow) {
     let slideIds = [];
     if (slideshow == 0) { slideIds = ["bonsai", "mulberry", "sakura"]; }
     else if (slideshow == 1) { slideIds = ["bowl-in-bowl", "vase", "pumpkin"]; }
     //else if (slideshow == 2) { slideIds = [""]; }
     for (let i = 0; i < slideIds.length; i++ ) { 
-        embedStuff(slideIds[i], widthOfTV*0.5, 0, xstartWave + (slideshow * windowWidth/2.5) + (widthOfTV*0.08), ystartWave - (widthOfTV*0.25));
-    } // change top to be centered on pedestals
+        embedStuff(slideIds[i], widthOfTV*0.5, 0, xstartWave + (slideshow * windowWidth/2.5) + (widthOfTV*0.08), ystartWave - (widthOfTV*0.33));
+    }
 }
 
-// draws 2 spotlights between the pedestals
+// draws 2 spotlights between pedestals, shining up at diplomas
 function drawSpotlightsUnderTVs() {
     let y1 = windowHeight*.7;
     let y2 = y1 - (heightOfTV*.75);
