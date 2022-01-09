@@ -45,7 +45,7 @@ let ystartWave; // y coord, may rename
 let xPosWave; // for the wave trig, may rename
 let yPosWave; // for the wave trig, may rename
 let widthOfPed;
-let heightsOfPeds = [];
+let heightsOfPed  = [];
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -115,9 +115,9 @@ function assignDynamicVariables() {
     x1ForLayer2 = windowWidth/3;
     x2ForLayer2 = 2*windowWidth/3;
     widthOfPed = widthOfTV/3.0;
-    heightsOfPeds[0] = windowHeight*0.2;
-    heightsOfPeds[1] = windowHeight*0.3;
-    heightsOfPeds[2] = windowHeight*0.2;
+    heightOfPed = windowHeight*0.25;
+    xstartWave = widthOfTV/3.0 - widthOfPed/2;
+    ystartWave = windowHeight*0.8 - heightOfPed;
 }
 
 // initializes randomized variables for background (overloaded for both the wall and floor) to have multiple colors as texture variety
@@ -224,12 +224,10 @@ function drawPedestals() {
     fill(248,248,241); // slight off-white
 
     // horizontally spaces out the pedestals
-    for (let i = 0; i < heightsOfPeds.length; i++) {
-        xstartWave = widthOfTV/3.0 - widthOfPed/2;
-        ystartWave = windowHeight*0.8 - heightsOfPeds[i];
+    for (let i = 0; i < 3; i++) {
         push();
         translate(xstartWave + (i*windowWidth/2.5), ystartWave);
-        drawPedestal(heightsOfPeds[i]);
+        drawPedestal();
 
         embedArtwork(i);
         pop();
@@ -238,7 +236,7 @@ function drawPedestals() {
 }
 
 // draws a pedestal using two drawWave() and a line
-function drawPedestal(heightOfPed) {
+function drawPedestal() {
   beginShape();
   // left wave
   for(xPosWave=xstartWave; xPosWave<xstartWave+heightOfPed; xPosWave=xPosWave+4) {
