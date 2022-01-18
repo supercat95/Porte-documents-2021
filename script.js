@@ -218,6 +218,31 @@ function embedCodeVideos(i) {
 }
 
 // -- layer 2: pedestals, artwork, spotlights, diplomas --
+// reads and parses data from artwork.JSON 
+function importJSON() {
+    let data = loadJSONObject("artwork.json");
+    let artData = data.getJSONArray("legends");
+    let legend;
+
+    for (let i = 0; i < artData.size(); i++) {
+        let art = artData.getJSONObject(i);
+        let title = artwork.getString("Title");
+        let author = artwork.getString("Author");
+        let technique = artwork.getString("Technique");
+        let date = artwork.getString("Date");
+        let statement = artwork.getString("Statement");
+
+        legend[i] = [title, author, technique, date, statement];
+    }
+
+    if (id == "bonsai") { legend = legend[0]; }
+    else if (id == "mulberry") { legend = legend[1]; }
+    else if (id == "sakura") { legend = legend[2]; }
+
+    text = document.getElementById(id);
+    text.innerHTML = "<i>- titre : </i>" + title + "<i> - auteur : </i>" + author + "<i> - technique : </i>" + technique + "<i> - date de création : </i>" + date;
+}
+
 // draws 3 pedestals underneath the code tvs and places artwork on top 
 function drawPedestals() {
     push();
