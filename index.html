@@ -37,21 +37,22 @@
 
     <!------------------- images ------------------------>
     <div class="slideshow">
-        <img class="glass" id="bonsai" src="https://pro2-bar-s3-cdn-cf.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/b5bd749c-f5e1-47d7-af61-d5e17684705a_rw_1200.JPEG?h=55ee3b4539c4f63fac8413434eadf23e" width="139px">
+        <p class="legend"></p>
+        <img class="glass" id="bonsai" src="https://pro2-bar-s3-cdn-cf.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/b5bd749c-f5e1-47d7-af61-d5e17684705a_rw_1200.JPEG?h=55ee3b4539c4f63fac8413434eadf23e" width="139px" alt="">
 
+        <img class="glass" id="mulberry" src="https://pro2-bar-s3-cdn-cf2.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/355ca2d7-a7fc-4926-9194-37364f76d102_rw_1920.JPEG?h=b51a839cb42ac6b1178485b7f819e291" width="139px" alt="">
 
-        <img class="glass" id="mulberry" src="https://pro2-bar-s3-cdn-cf2.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/355ca2d7-a7fc-4926-9194-37364f76d102_rw_1920.JPEG?h=b51a839cb42ac6b1178485b7f819e291" width="139px">
-
-        <img class="glass" id="sakura" src="https://pro2-bar-s3-cdn-cf.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/b7e5f89b-d252-47c6-9991-f70dae765121_rw_1920.jpg?h=3645da7fd635d291dc1508536f0b4955" width="139px">
+        <img class="glass" id="sakura" src="https://pro2-bar-s3-cdn-cf.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/b7e5f89b-d252-47c6-9991-f70dae765121_rw_1920.jpg?h=3645da7fd635d291dc1508536f0b4955" width="139px" alt="">
 
     </div>
 
     <div class="slideshow">
-        <img class="ceramics" id="bowl-in-bowl" src="https://pro2-bar-s3-cdn-cf5.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/6f44d0ca-bec6-4195-80fc-afef6be6df39_rw_1920.jpg?h=28938bef4894343eedd723f6d5350521" width="139px">
+        <p class="legend"></p>
+        <img class="ceramics" id="bowl-in-bowl" src="https://pro2-bar-s3-cdn-cf5.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/6f44d0ca-bec6-4195-80fc-afef6be6df39_rw_1920.jpg?h=28938bef4894343eedd723f6d5350521" width="139px" alt="">
         
-        <img class="ceramics" id="vase" src="https://pro2-bar-s3-cdn-cf1.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/96c9bb81-6eb3-4c64-b77f-ef1081152705_rw_1920.jpg?h=5f3dc330c4e9318e6c21d8a31d2c33b6" width="139px">
+        <img class="ceramics" id="vase" src="https://pro2-bar-s3-cdn-cf1.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/96c9bb81-6eb3-4c64-b77f-ef1081152705_rw_1920.jpg?h=5f3dc330c4e9318e6c21d8a31d2c33b6" width="139px" alt="">
         
-        <img class="ceramics" id="pumpkin" src="https://pro2-bar-s3-cdn-cf1.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/cdcbb8d6-4ab7-4945-be23-9b0822f27615_rw_1920.jpg?h=c0dbe860d5f2d0686b1c611cf1c60266" width="139px">
+        <img class="ceramics" id="pumpkin" src="https://pro2-bar-s3-cdn-cf1.myportfolio.com/303cdf7e37cd236f0b81ff8ad8fca607/cdcbb8d6-4ab7-4945-be23-9b0822f27615_rw_1920.jpg?h=c0dbe860d5f2d0686b1c611cf1c60266" width="139px" alt="">
     </div>
 
     <script>
@@ -80,7 +81,31 @@
             
             // delay between changes
             setTimeout(playSlideshow, 2000, slides);
-        }       
+        }
+
+        function importJSON() {
+            JSONObject data = loadJSONObject("artwork.json");
+            var artData = data.getJSONArray("legends");
+            var legend;
+    
+            for (int i = 0; i < artData.size(); i++) {
+                JSONObject art = artData.getJSONObject(i);
+                String title = artwork.getString("Title");
+                String author = artwork.getString("Author");
+                String technique = artwork.getString("Technique");
+                String date = artwork.getString("Date");
+                String statement = artwork.getString("Statement");
+
+                legend[i] = [title, author, technique, date, statement];
+            }
+        }
+
+        if (id == "bonsai") { legend = legend[0]; }
+        else if (id == "mulberry") { legend = legend[1]; }
+        else if (id == "sakura") { legend = legend[2]; }
+
+        text = document.getElementById(id);
+        text.innerHTML = "<i>- titre : </i>" + title + "<i> - auteur : </i>" + author + "<i> - technique : </i>" + technique + "<i> - date de création : </i>" + date;     
     </script>
   </body>
 </html>

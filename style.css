@@ -15,3 +15,9 @@ img {
     position: absolute;
     vertical-align: middle;
 }
+
+.legend {
+    background-color: rgb(131, 108, 34); 
+    color: rgb(34, 57, 131);
+    text-align: center;
+}

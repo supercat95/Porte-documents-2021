@@ -1,0 +1,46 @@
+{
+	"legends":[
+		{
+			"Title": "Le bonsaï",
+			"Author": "Joy Bates",
+			"Technique": "Verre",
+			"Date": "October 2021",
+			"Statement": ""
+		},
+        {
+			"Title": "La pastiche",
+			"Author": "Joy Bates",
+			"Technique": "Verre",
+			"Date": "October 2021",
+			"Statement": ""
+		},
+        {
+			"Title": "L'abre sakura",
+			"Author": "Joy Bates",
+			"Technique": "Verre",
+			"Date": "October 2021",
+			"Statement": ""
+		},
+        {
+			"Title": "Bol dans un bol",
+			"Author": "Joy Bates",
+			"Technique": "Porcelaine",
+			"Date": "Automne 2020",
+			"Statement": ""
+		},
+        {
+			"Title": "La vase",
+			"Author": "Joy Bates",
+			"Technique": "Céramique",
+			"Date": "2020",
+			"Statement": ""
+		},
+        {
+			"Title": "Un pot en forme de citrouille",
+			"Author": "Joy Bates",
+			"Technique": "Céramique",
+			"Date": "Automne 2020",
+			"Statement": ""
+		}
+    ]
+}
