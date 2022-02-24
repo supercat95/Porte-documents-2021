@@ -228,33 +228,6 @@ function embedCodeVideos(i) {
 
 // -- layer 2: pedestals, artwork, spotlights, diplomas --
 // reads and parses data from artwork.JSON.
-function importJSON1(slides) { // not called
-    let data = loadJSON('artwork.json');
-    let artData = data.getJSONArray("legends");
-    let legend = [];
-    let workOfArt = [];
-
-    for (let i = 0; i < artData.size(); i++) {
-        let art = artData.getJSONObject(i);
-        let title = artwork.getString("Title");
-        let author = artwork.getString("Author");
-        let technique = artwork.getString("Technique");
-        let date = artwork.getString("Date");
-        let statement = artwork.getString("Statement");
-
-        legend[i] = [title, author, technique, date, statement];
-    }
-
-    /*
-    for (let i = 0; i < slides.size; i++) {
-        let workOfArt[i] = slides[i];
-    }
-    */
-
-    let text = document.getElementById(id);
-    text.innerHTML = "<i>Titre : </i>" + legend[i].title + "<br><i>Auteur : </i>" + author + "<br><i>Technique : </i>" + technique + "<br><i>Date de création : </i>" + date + "<br>" + statement;
-}
-
 // temporarily called from draw() for debugging
 function drawLegends() { // change coords. call from index.html
     textSize(15);
