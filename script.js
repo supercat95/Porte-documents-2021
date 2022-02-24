@@ -1,4 +1,4 @@
-// I mention "layers" throughout my code, referring to the division of the composition into three horizontal sections: TVs, middle section, floor section
+// I mention "layers" throughout my code, referring to the division of the composition into three horizontal sections for organization purposes: TVs, middle section, floor section
 
 // arrays for wall background
 let wallPalette = [];
@@ -83,6 +83,7 @@ function setup() {
 function draw() {
     // console.log(pmouseX + ' ' + pmouseY); // for debug
     // noLoop(); // temp while TVs have an error
+
     assignDynamicVariables(); // variables that rely on Window CALL FIRST
     // wall
     drawBackground(0, windowWidth, spacingOfWall, 0, windowHeight*0.8, spacingOfWall, wallColors, xPosWall, yPosWall, xSizeWall, ySizeWall, roundWall); 
@@ -107,12 +108,14 @@ function draw() {
     drawTVsForCodeVideos(); // call last because of error
 }
 
-// allows the canvas to dynamically resize as the window does. not sure if I actually want this.
+// allows the canvas to dynamically resize as the window does. not sure if I actually want this, since it breaks a lot of code and sometimes looks really ugly.
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
-// --------------- universal functions -------------------
+/* ===========================================================
+------------------- universal functions ----------------------
+============================================================*/
 // assignment of dynamic variables that rely on windowWidth and windowHeight
 function assignDynamicVariables() {
     // assignment of variables for code TVs
@@ -175,9 +178,10 @@ function embedStuff(id, width, height, left, top) {
     embed.style.left = left + 'px';
     embed.style.top = top + 'px';
 }
-
-// ------------------ layer 1: TVs ----------------------
-// MOVE INTO DRAW() ? Uses a loop to create 4 tvs with embedded videos. Calls two other functions.
+/* ===========================================================
+----------------------- layer 1: TVs -------------------------
+============================================================*/
+// Uses a loop to create 4 tvs with embedded videos. Calls two other functions.
 function drawTVsForCodeVideos() {
     rectMode(CENTER);
     fill(0); //EXTRANEOUS, REMOVE AFTER 4TH VIDEO ?
@@ -192,7 +196,7 @@ function drawTVsForCodeVideos() {
         drawSupportsForTVs();
         embedCodeVideos(i);
 
-        xPosOfTV+=(widthOfTV * 1.09); // 1.2x based off widthOfTV/5.0 to equal 100% of screen width
+        xPosOfTV+=(widthOfTV * 1.09);
         if (i==1) { xPosOfTV += widthOfTV/1.8; } // creates a gap in the middle of the screen
     }
 }
@@ -226,25 +230,34 @@ function embedCodeVideos(i) {
     xPosOfTV - (widthOfTV / 2.2) - (strokeOfTV / 2), (yPosOfTV / 2.0) - (strokeOfTV * 2));
 }
 
-// -- layer 2: pedestals, artwork, spotlights, diplomas --
+/* ===========================================================
+--layer 2: legends, pedestals, artwork, spotlights, diplomas--
+============================================================*/
 // parses data from artwork.JSON and prints
 // temporarily called from draw() for debugging
-function drawLegends() { // change coords. call from index.html
+function drawLegends() { // change coords. call from index.html. loop.
+    let xLegend = yPosWave + widthOfPed;
+    let yLegend = windowHeight * 0.32;
+    stroke(151,108,66); // table edge color
+    fill(175,128,85); // tabletop color
+    rect(xLegend, windowHeight * 0.36, widthOfPed*1.25, widthOfTV * 0.3);
+
     textSize(18);
-    textLeading(20);
+    let leading = 20;
     textAlign(CENTER, CENTER);
+    noStroke();
     fill(255,255,255);
-    
+
     for (let i = 0; i < 5; i++) {
-        text("Titre : " + data.legends[0].Title, windowWidth/2, 100);
-        text("Auteure : " + data.legends[0].Author, windowWidth/2, 125);
-        text("Technique : " + data.legends[0].Technique, windowWidth/2, 150);
-        text("Date de création : " + data.legends[0].Date, windowWidth/2, 175);
-        text(data.legends[0].Statement, windowWidth/2, 200);
+        text(data.legends[0].Title, xLegend, yLegend);
+        text(data.legends[0].Author, xLegend, yLegend + leading);
+        text(data.legends[0].Technique, xLegend, yLegend + leading * 2);
+        text(data.legends[0].Date, xLegend, yLegend + leading * 3);
+        text(data.legends[0].Statement, xLegend, yLegend * 4);
   }
 }
 
-// draws 3 pedestals underneath the code tvs and places artwork on top 
+// draws 3 pedestals underneath the code tvs and places artwork on top. calls 2 other functions
 function drawPedestals() {
     push();
     fill(248,248,241); // slight off-white
@@ -330,7 +343,9 @@ function drawDiplomas() {
     embedStuff("dfp", wdfp, 0, xdfp, ydfp);
 }
 
-// ----- layer 3: tables and about me sign -------
+/* ===========================================================
+------------ layer 3: tables and about me sign ---------------
+============================================================*/
 // overloaded function, called twice, to draw a table at given locations and sizes
 function drawTable(xPos, yPos, rotation, tableHeight, tableWidth, decor) { 
     let legWidth = tableWidth*0.12;
