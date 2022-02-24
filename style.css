@@ -20,8 +20,7 @@ img {
     background-color: rgb(175,128,85); 
     color: white;
     text-align: center;
-    width: 200px;
-    padding: 30px;
-    border: 15px solid rgb(151,108,66);
+    padding: 15px;
+    border: 5px solid rgb(151,108,66);
     margin: 20px;
 }

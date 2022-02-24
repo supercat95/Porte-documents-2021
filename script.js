@@ -47,6 +47,13 @@ let yPosWave; // for the wave trig, may rename
 let widthOfPed;
 let heightsOfPed  = [];
 
+// JSON parsing
+let data = {};
+
+function preload() {
+    data = loadJSON('artwork.json');
+}
+
 function setup() {
     createCanvas(windowWidth, windowHeight);
     
@@ -95,6 +102,8 @@ function draw() {
     drawTable(windowWidth*0.27, windowHeight*0.83, PI/100, heightOfTV, widthOfTV*0.3, "books"); // left table
     drawTable(windowWidth*0.72, windowHeight*0.85, PI/70, heightOfTV, widthOfTV*0.3, "laptop"); // right table
     // layer 1
+
+    drawLegends();
     drawTVsForCodeVideos(); // call last because of error
 }
 
@@ -218,9 +227,9 @@ function embedCodeVideos(i) {
 }
 
 // -- layer 2: pedestals, artwork, spotlights, diplomas --
-// reads and parses data from artwork.JSON 
-function importJSON(slides) {
-    let data = loadJSONObject("artwork.json");
+// reads and parses data from artwork.JSON.
+function importJSON1(slides) { // not called
+    let data = loadJSON('artwork.json');
     let artData = data.getJSONArray("legends");
     let legend = [];
     let workOfArt = [];
@@ -242,8 +251,23 @@ function importJSON(slides) {
     }
     */
 
-    text = document.getElementById(id);
-    text.innerHTML = "<i>- titre : </i>" + legend[i].title + "<i> - auteur : </i>" + author + "<i> - technique : </i>" + technique + "<i> - date de création : </i>" + date;
+    let text = document.getElementById(id);
+    text.innerHTML = "<i>Titre : </i>" + legend[i].title + "<br><i>Auteur : </i>" + author + "<br><i>Technique : </i>" + technique + "<br><i>Date de création : </i>" + date + "<br>" + statement;
+}
+
+// temporarily called from draw() for debugging
+function drawLegends() { // change coords. call from index.html
+    textSize(15);
+    textAlign(CENTER, CENTER);
+    fill(255,255,255);
+    
+    for (let i = 0; i < 5; i++) {
+        text("Titre : " + data.legends[0].Title, windowWidth/2, 100);
+        text("Auteure : " + data.legends[0].Author, windowWidth/2, 125);
+        text("Technique : " + data.legends[0].Technique, windowWidth/2, 150);
+        text("Date de création : " + data.legends[0].Date, windowWidth/2, 175);
+        text(data.legends[0].Statement, windowWidth/2, 200);
+  }
 }
 
 // draws 3 pedestals underneath the code tvs and places artwork on top 
@@ -375,7 +399,7 @@ function drawTable(xPos, yPos, rotation, tableHeight, tableWidth, decor) {
 
 // recursive function to draw books on left table that link to writing sample PDFs. called from within drawTable()'s push/pop
 function drawBooks(tableWidth, tableHeight, yPos, newyPos, red, green, blue) { // add button system for books -> windows
-    let bookWidth = tableHeight*0.7;
+    let bookWidth = tableHeight*0.70;
     let bookHeight = tableWidth*0.25;
 
     // book 1: ARHS research paper
