@@ -227,10 +227,11 @@ function embedCodeVideos(i) {
 }
 
 // -- layer 2: pedestals, artwork, spotlights, diplomas --
-// reads and parses data from artwork.JSON.
+// parses data from artwork.JSON and prints
 // temporarily called from draw() for debugging
 function drawLegends() { // change coords. call from index.html
-    textSize(15);
+    textSize(18);
+    textLeading(20);
     textAlign(CENTER, CENTER);
     fill(255,255,255);
     
