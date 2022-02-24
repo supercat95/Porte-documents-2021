@@ -61,13 +61,14 @@
 
         for (var i = 0; i < slideClass.length; i++) {          playSlideshow(i); 
         }
-
+    
         function playSlideshow(slides) {
             var slide = document.getElementsByClassName(slideClass[slides]);
             
             // default state for images is not shown
             for (var i = 0; i < slide.length; i++) {
-                slide[i].style.display = "none";  
+                slide[i].style.display = "none"; 
+                //importJSON(i);
             }
             
             // images are shown one at a time

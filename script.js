@@ -219,10 +219,11 @@ function embedCodeVideos(i) {
 
 // -- layer 2: pedestals, artwork, spotlights, diplomas --
 // reads and parses data from artwork.JSON 
-function importJSON() {
+function importJSON(slides) {
     let data = loadJSONObject("artwork.json");
     let artData = data.getJSONArray("legends");
-    let legend;
+    let legend = [];
+    let workOfArt = [];
 
     for (let i = 0; i < artData.size(); i++) {
         let art = artData.getJSONObject(i);
@@ -235,12 +236,14 @@ function importJSON() {
         legend[i] = [title, author, technique, date, statement];
     }
 
-    if (id == "bonsai") { legend = legend[0]; }
-    else if (id == "mulberry") { legend = legend[1]; }
-    else if (id == "sakura") { legend = legend[2]; }
+    /*
+    for (let i = 0; i < slides.size; i++) {
+        let workOfArt[i] = slides[i];
+    }
+    */
 
     text = document.getElementById(id);
-    text.innerHTML = "<i>- titre : </i>" + title + "<i> - auteur : </i>" + author + "<i> - technique : </i>" + technique + "<i> - date de création : </i>" + date;
+    text.innerHTML = "<i>- titre : </i>" + legend[i].title + "<i> - auteur : </i>" + author + "<i> - technique : </i>" + technique + "<i> - date de création : </i>" + date;
 }
 
 // draws 3 pedestals underneath the code tvs and places artwork on top 
@@ -303,7 +306,7 @@ function drawSpotlightsUnderTVs() {
     let y2 = y1 - (heightOfTV*.75);
     let rad = widthOfTV/4;
 
-    fill(237,227,2); // yellow. can change later
+    fill(246, 240, 114, 180); // yellow
     noStroke();
 
     ellipse(x1ForLayer2, y1, rad);
@@ -360,7 +363,7 @@ function drawTable(xPos, yPos, rotation, tableHeight, tableWidth, decor) {
 
             if (decor == "books") {
                 push();
-                    drawBooks(tableWidth, tableHeight, 0, 0, 255);
+                    drawBooks(tableWidth, tableHeight, 0, 0, 94, 100, 246);
                 pop();
             } else if (decor == "laptop") {
                 push();
@@ -371,7 +374,7 @@ function drawTable(xPos, yPos, rotation, tableHeight, tableWidth, decor) {
 }
 
 // recursive function to draw books on left table that link to writing sample PDFs. called from within drawTable()'s push/pop
-function drawBooks(tableWidth, tableHeight, yPos, newyPos, green) { // add button system for books -> windows
+function drawBooks(tableWidth, tableHeight, yPos, newyPos, red, green, blue) { // add button system for books -> windows
     let bookWidth = tableHeight*0.7;
     let bookHeight = tableWidth*0.25;
 
@@ -381,15 +384,15 @@ function drawBooks(tableWidth, tableHeight, yPos, newyPos, green) { // add butto
     // book 4: another FREN sample (argumentative?)
 
     // binding
-    fill(0,green,0); // REPLACE VALUE *AND* GREEN VARIABLE
+    fill(red, green, blue);
     rect(0, newyPos, bookWidth, bookHeight);
     // pages
     fill(250, 245, 235); // paper beige
     rect(bookWidth*0.42, newyPos, bookWidth*0.15, bookHeight-4);
 
-    // decrements newyPos, bookWidth, and green
+    // decrements newyPos, bookWidth, and fill color
     if (newyPos >= yPos-(bookHeight*1.5)) { // 3 books
-        drawBooks(tableWidth, tableHeight*.95, yPos, newyPos-=bookHeight, green-=20);
+        drawBooks(tableWidth, tableHeight*.95, yPos, newyPos-=bookHeight, red+=10, green+=10, blue);
     }
 }
 
