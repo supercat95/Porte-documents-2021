@@ -82,7 +82,7 @@ function setup() {
 
 function draw() {
     // console.log(pmouseX + ' ' + pmouseY); // for debug
-    // noLoop(); // temp while TVs have an error
+    // noLoop(); // uncommenting repositions (bad) and removes duplication (good) of plaque, and opens dfp file for smu (bad)
 
     assignDynamicVariables(); // variables that rely on Window CALL FIRST
     // wall
