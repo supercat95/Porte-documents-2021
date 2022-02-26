@@ -413,9 +413,9 @@ function drawBooks(widthOfTable, heightOfTable, yPos, newyPos, red, green, blue)
     let widthOfBook = heightOfTable*0.70;
     let heightOfBook = widthOfTable*0.25;
 
-    // book 1: ARHS research paper
-    // book 2: FREN Japonaise Paris
-    // book 3: ARHS visual analysis
+    // book 0: ARHS research paper
+    // book 1: L'Influence Japonaise Façonne Paris
+    // book 2: ARHS visual analysis
 
     // binding
     fill(red, green, blue);
@@ -442,6 +442,16 @@ function checkForBookHover() {
       } else {
             return isHoveringOverBooks[i] = false;
       }
+    }
+}
+
+function mouseClicked() {
+    if (isHoveringOverBooks[0]) {
+        window.open("", "", "height=700,width=800");
+    } else if (isHoveringOverBooks[1]) {
+window.open("https://docs.google.com/document/d/1_uPsb30FZtp45i1f2sxuBVXOJusTbsrf/edit?usp=sharing&ouid=113525944669857556919&rtpof=true&sd=true", "", "height=700,width=800");
+    } else if (isHoveringOverBooks[2]) {
+        window.open("", "", "height=700,width=800");
     }
 }
 
