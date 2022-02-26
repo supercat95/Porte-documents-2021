@@ -406,8 +406,8 @@ function drawTable(xPos, yPos, rotation, decor) {
 
 // recursive function to draw 3 books on left table that link to writing sample PDFs. called from within drawTable()'s push/pop
 function drawBooks(widthOfTable, heightOfTable, yPos, newyPos, red, green, blue) { // add button system for books -> windows
-    let bookWidth = heightOfTable*0.70;
-    let bookHeight = widthOfTable*0.25;
+    let widthOfBook = heightOfTable*0.70;
+    let heightOfBook = widthOfTable*0.25;
 
     // book 1: ARHS research paper
     // book 2: FREN Japonaise Paris
@@ -415,14 +415,14 @@ function drawBooks(widthOfTable, heightOfTable, yPos, newyPos, red, green, blue)
 
     // binding
     fill(red, green, blue);
-    rect(0, newyPos, bookWidth, bookHeight);
+    rect(0, newyPos, widthOfBook, heightOfBook);
     // pages
     fill(250, 245, 235); // paper beige
-    rect(bookWidth*0.42, newyPos, bookWidth*0.15, bookHeight-4);
+    rect(widthOfBook*0.42, newyPos, widthOfBook*0.15, heightOfBook-4);
 
-    // decrements newyPos, bookWidth, and fill color
-    if (newyPos >= yPos-(bookHeight*1.5)) { // 3 books
-        drawBooks(widthOfTable, heightOfTable*.95, yPos, newyPos-=bookHeight, red+=10, green+=10, blue);
+    // decrements newyPos, widthOfBook, and fill color
+    if (newyPos >= yPos-(heightOfBook*1.5)) { // 3 books
+        drawBooks(widthOfTable, heightOfTable*.95, yPos, newyPos-=heightOfBook, red+=10, green+=10, blue);
     }
 }
 
