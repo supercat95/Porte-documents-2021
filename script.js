@@ -54,6 +54,8 @@ let xTable2;
 let yTable2;
 let widthOfTable;
 let heightOfTable;
+let yBooks = [];
+let widthOfBooks = [];
 
 // JSON parsing
 let data = {};
@@ -421,8 +423,11 @@ function drawBooks(widthOfTable, heightOfTable, yPos, newyPos, red, green, blue)
     rect(widthOfBook*0.42, newyPos, widthOfBook*0.15, heightOfBook-4);
 
     // decrements newyPos, widthOfBook, and fill color
+    let i = 0;
     if (newyPos >= yPos-(heightOfBook*1.5)) { // 3 books
-        drawBooks(widthOfTable, heightOfTable*.95, yPos, newyPos-=heightOfBook, red+=10, green+=10, blue);
+        drawBooks(widthOfTable, widthOfBooks[i] = heightOfTable*.95, yPos, yBooks[i] = newyPos-=heightOfBook, red+=10, green+=10, blue);
+        if (i < 2) { i++ } 
+        else { i = 0; }
     }
 }
 
