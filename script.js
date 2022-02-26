@@ -47,6 +47,14 @@ let yPosWave; // for the wave trig, may rename
 let widthOfPed;
 let heightsOfPed  = [];
 
+// variables for layer 3
+let xTable1;
+let yTable1;
+let xTable2;
+let yTable2;
+let widthOfTable;
+let heightOfTable;
+
 // JSON parsing
 let data = {};
 
@@ -99,12 +107,12 @@ function draw() {
     drawPedestals();
     drawSpotlightsUnderTVs();
     drawDiplomas();
-    // layer 3
-    drawTable(windowWidth*0.27, windowHeight*0.83, PI/100, heightOfTV, widthOfTV*0.3, "books"); // left table
-    drawTable(windowWidth*0.72, windowHeight*0.85, PI/70, heightOfTV, widthOfTV*0.3, "laptop"); // right table
-    // layer 1
-
     drawLegends();
+    // layer 3
+    drawTable(xTable1, yTable1, PI/100, "books"); // left table
+    drawTable(xTable2, yTable2, PI/70, "laptop"); // right table
+
+    // layer 1
     drawTVsForCodeVideos(); // call last because of error
 }
 
@@ -123,6 +131,7 @@ function assignDynamicVariables() {
     heightOfTV = windowHeight/4.4; //5.6
     xPosOfTV = (widthOfTV * 1.2) - (widthOfTV / 1.6); // 1.2 2.0
     yPosOfTV = heightOfTV*.75;
+    
     // variables for layer 2
     x1ForLayer2 = windowWidth/3;
     x2ForLayer2 = 2*windowWidth/3;
@@ -130,6 +139,14 @@ function assignDynamicVariables() {
     heightOfPed = windowHeight*0.2;
     xstartWave = widthOfTV/3.0 - widthOfPed/2;
     ystartWave = windowHeight*0.8 - heightOfPed;
+
+    // variables for layer 3
+    xTable1 = windowWidth*0.27;
+    yTable1 = windowHeight*0.83;
+    xTable2 = windowWidth*0.72;
+    yTable2 = windowHeight*0.85;
+    widthOfTable = widthOfTV*0.3;
+    heightOfTable = heightOfTV;
 }
 
 // initializes randomized variables for background (overloaded for both the wall and floor) to have multiple colors as texture variety
@@ -346,12 +363,12 @@ function drawDiplomas() {
 /* ===========================================================
 ------------ layer 3: tables and about me sign ---------------
 ============================================================*/
-// overloaded function, called twice, to draw a table at given locations and sizes
-function drawTable(xPos, yPos, rotation, tableHeight, tableWidth, decor) { 
-    let legWidth = tableWidth*0.12;
-    let legHeight = tableWidth*0.7;
-    let legxPos1 = tableHeight/2 - legWidth/2;
-    let legxPos2 = tableHeight/2;
+// overloaded function, called twice from draw(), to draw a table at given locations and sizes
+function drawTable(xPos, yPos, rotation, decor) { 
+    let legWidth = widthOfTable*0.12;
+    let legHeight = widthOfTable*0.7;
+    let legxPos1 = heightOfTable/2 - legWidth/2;
+    let legxPos2 = heightOfTable/2;
     let offset = 5;
 
     // USE THESE FILL VALUES FOR TEXTURE L8R https://www.color-hex.com/color-palette/5258
@@ -363,38 +380,38 @@ function drawTable(xPos, yPos, rotation, tableHeight, tableWidth, decor) {
         noStroke();
             // legs 
             fill(134,98,71); // brown-gray
-            rect(0 - legxPos1 + offset, legHeight/2, legWidth, tableWidth); // back left leg
-            rect(0 - legxPos1, legHeight, legWidth, tableWidth); // front left leg 
-            rect(legxPos2 - offset, legHeight, legWidth, tableWidth); // back right leg
-            rect(legxPos2, legHeight/2, legWidth, tableWidth); // front right leg
+            rect(0 - legxPos1 + offset, legHeight/2, legWidth, widthOfTable); // back left leg
+            rect(0 - legxPos1, legHeight, legWidth, widthOfTable); // front left leg 
+            rect(legxPos2 - offset, legHeight, legWidth, widthOfTable); // back right leg
+            rect(legxPos2, legHeight/2, legWidth, widthOfTable); // front right leg
 
             // table surface
             fill(151,108,66); // brown-green
-            rect(offset/2, offset/2, tableHeight+offset, tableWidth+offset); // table side
+            rect(offset/2, offset/2, heightOfTable+offset, widthOfTable+offset); // table side
             fill(175,128,85); // brown-beige
-            rect(0, 0, tableHeight, tableWidth); // table top
+            rect(0, 0, heightOfTable, widthOfTable); // table top
 
             if (decor == "books") {
                 push();
-                    drawBooks(tableWidth, tableHeight, 0, 0, 94, 100, 246);
+                    rotate(-rotation);
+                    drawBooks(widthOfTable, heightOfTable, 0, 0, 94, 100, 246);
                 pop();
             } else if (decor == "laptop") {
                 push();
-                    //drawLaptop(tableWidth, tableHeight);
+                    //drawLaptop(widthOfTable, heightOfTable);
                 pop();
             }
     pop();
 }
 
-// recursive function to draw books on left table that link to writing sample PDFs. called from within drawTable()'s push/pop
-function drawBooks(tableWidth, tableHeight, yPos, newyPos, red, green, blue) { // add button system for books -> windows
-    let bookWidth = tableHeight*0.70;
-    let bookHeight = tableWidth*0.25;
+// recursive function to draw 3 books on left table that link to writing sample PDFs. called from within drawTable()'s push/pop
+function drawBooks(widthOfTable, heightOfTable, yPos, newyPos, red, green, blue) { // add button system for books -> windows
+    let bookWidth = heightOfTable*0.70;
+    let bookHeight = widthOfTable*0.25;
 
     // book 1: ARHS research paper
     // book 2: FREN Japonaise Paris
     // book 3: ARHS visual analysis
-    // book 4: another FREN sample (argumentative?)
 
     // binding
     fill(red, green, blue);
@@ -405,20 +422,20 @@ function drawBooks(tableWidth, tableHeight, yPos, newyPos, red, green, blue) { /
 
     // decrements newyPos, bookWidth, and fill color
     if (newyPos >= yPos-(bookHeight*1.5)) { // 3 books
-        drawBooks(tableWidth, tableHeight*.95, yPos, newyPos-=bookHeight, red+=10, green+=10, blue);
+        drawBooks(widthOfTable, heightOfTable*.95, yPos, newyPos-=bookHeight, red+=10, green+=10, blue);
     }
 }
 
 // draws about me on the right table. called from within drawTable()'s push/pop
-function drawLaptop(tableHeight, tableWidth) { // currently not called
-    let laptopWidth = tableWidth*0.6;
-    let laptopHeight = tableHeight*0.8;
+function drawLaptop(heightOfTable, widthOfTable) { // currently not called
+    let laptopWidth = widthOfTable*0.6;
+    let laptopHeight = heightOfTable*0.8;
 
     fill(48,48,48); // same gray and tv frames
     // monitor
     push();
         rotate(PI/36);
-        rect(tableWidth*0.1, 0-laptopHeight, laptopWidth, laptopHeight);
+        rect(widthOfTable*0.1, 0-laptopHeight, laptopWidth, laptopHeight);
     pop();
     // keyboard
     push();
