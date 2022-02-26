@@ -56,6 +56,7 @@ let widthOfTable;
 let heightOfTable;
 let yBooks = [];
 let widthOfBooks = [];
+let isHoveringOverBooks = [false, false, false];
 
 // JSON parsing
 let data = {};
@@ -113,6 +114,7 @@ function draw() {
     // layer 3
     drawTable(xTable1, yTable1, PI/100, "books"); // left table
     drawTable(xTable2, yTable2, PI/70, "laptop"); // right table
+    checkForBookHover();
 
     // layer 1
     drawTVsForCodeVideos(); // call last because of error
@@ -422,12 +424,24 @@ function drawBooks(widthOfTable, heightOfTable, yPos, newyPos, red, green, blue)
     fill(250, 245, 235); // paper beige
     rect(widthOfBook*0.42, newyPos, widthOfBook*0.15, heightOfBook-4);
 
-    // decrements newyPos, widthOfBook, and fill color
+    // decrements newyPos, widthOfBook, and fill color. saves newyPos and widthOfBook into arrays
     let i = 0;
     if (newyPos >= yPos-(heightOfBook*1.5)) { // 3 books
         drawBooks(widthOfTable, widthOfBooks[i] = heightOfTable*.95, yPos, yBooks[i] = newyPos-=heightOfBook, red+=10, green+=10, blue);
         if (i < 2) { i++ } 
         else { i = 0; }
+    }
+}
+
+// constantly checks if the cursor is positioned over a book. called from draw()
+function checkForBookHover() {
+    for (int i = 0; i < 2; i++) {
+        if (mouseX >= widthOfTable && mouseX <= widthOfTable + widthOfBooks[i] &&
+         mouseY >= heightOfTable && mouseY <= y+h) {
+            return isHoveringOverBooks[i] = true;
+      } else {
+            return isHoveringOverBooks[i] = false;
+      }
     }
 }
 
