@@ -56,7 +56,7 @@ let widthOfTable;
 let heightOfTable;
 let yBooks = [];
 let widthOfBooks = [];
-let isHoveringOverBooks = [false, false, false];
+let isHoveringOverBooks = [false, false, false, false, false, false];
 
 // JSON parsing
 let data = {};
@@ -96,6 +96,7 @@ function draw() {
     // noLoop(); // uncommenting repositions (bad) and removes duplication (good) of plaque, and opens dfp file for smu (bad)
 
     assignDynamicVariables(); // variables that rely on Window CALL FIRST
+    
     // wall
     drawBackground(0, windowWidth, spacingOfWall, 0, windowHeight*0.8, spacingOfWall, wallColors, xPosWall, yPosWall, xSizeWall, ySizeWall, roundWall); 
     // floor
@@ -114,7 +115,6 @@ function draw() {
     // layer 3
     drawTable(xTable1, yTable1, PI/100, "left"); // left table
     drawTable(xTable2, yTable2, PI/70, "right"); // right table
-    checkForBookHover();
 
     // layer 1
     drawTVsForCodeVideos(); // call last because of error
