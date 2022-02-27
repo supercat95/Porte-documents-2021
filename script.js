@@ -395,14 +395,14 @@ function drawTable(xPos, yPos, rotation, decor) {
             fill(175,128,85); // brown-beige
             rect(0, 0, heightOfTable, widthOfTable); // table top
 
-                push();
-                    rotate(-rotation);
-                    if (decor == "left") { // purple
-                    drawBooks(widthOfTable, heightOfTable, 0, 0, 165, 128, 230);
-                    } else if (decor == "right") { // green
-                    drawBooks(widthOfTable, heightOfTable, 0, 0, 126, 229, 123);
-                    }
-                pop();
+            push();
+                rotate(-rotation);
+                if (decor == "left") { // purple
+                drawBooks(widthOfTable, heightOfTable, 0, 0, 165, 128, 230);
+                } else if (decor == "right") { // green
+                drawBooks(widthOfTable, heightOfTable, 0, 0, 126, 229, 123);
+                }
+            pop();
     pop();
 }
 
@@ -457,23 +457,5 @@ window.open("https://drive.google.com/file/d/17u9y4GXJG1anETmzGCBBZe7Bij9Y_C9p/v
     else if (isHoveringOverBooks[5]) { // l'identité française  window.open("https://drive.google.com/file/d/1URNNNkKEUMNhcYLXcG7l3zhYsIHQ0ltJ/view?usp=sharing", "", "height=700,width=800");
     }
     */
-}
-
-// draws about me on the right table. called from within drawTable()'s push/pop
-function drawLaptop(heightOfTable, widthOfTable) { // currently not called
-    let laptopWidth = widthOfTable*0.6;
-    let laptopHeight = heightOfTable*0.8;
-
-    fill(48,48,48); // same gray and tv frames
-    // monitor
-    push();
-        rotate(PI/36);
-        rect(widthOfTable*0.1, 0-laptopHeight, laptopWidth, laptopHeight);
-    pop();
-    // keyboard
-    push();
-        rotate(PI/6);
-        rect(0, 0-laptopHeight*0.1, laptopWidth, laptopHeight);
-    pop();
 }
   
