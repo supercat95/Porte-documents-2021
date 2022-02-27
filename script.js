@@ -112,8 +112,8 @@ function draw() {
     drawDiplomas();
     drawLegends();
     // layer 3
-    drawTable(xTable1, yTable1, PI/100, "books"); // left table
-    drawTable(xTable2, yTable2, PI/70, "laptop"); // right table
+    drawTable(xTable1, yTable1, PI/100, "left"); // left table
+    drawTable(xTable2, yTable2, PI/70, "right"); // right table
     checkForBookHover();
 
     // layer 1
@@ -395,27 +395,21 @@ function drawTable(xPos, yPos, rotation, decor) {
             fill(175,128,85); // brown-beige
             rect(0, 0, heightOfTable, widthOfTable); // table top
 
-            if (decor == "books") {
                 push();
                     rotate(-rotation);
-                    drawBooks(widthOfTable, heightOfTable, 0, 0, 94, 100, 246);
+                    if (decor == "left") { // purple
+                    drawBooks(widthOfTable, heightOfTable, 0, 0, 165, 128, 230);
+                    } else if (decor == "right") { // green
+                    drawBooks(widthOfTable, heightOfTable, 0, 0, 126, 229, 123);
+                    }
                 pop();
-            } else if (decor == "laptop") {
-                push();
-                    //drawLaptop(widthOfTable, heightOfTable);
-                pop();
-            }
     pop();
 }
 
-// recursive function to draw 3 books on left table that link to writing sample PDFs. called from within drawTable()'s push/pop
-function drawBooks(widthOfTable, heightOfTable, yPos, newyPos, red, green, blue) { // add button system for books -> windows
+// recursive function to draw 3 books per table that link to writing sample PDFs. called from within drawTable()'s push/pop
+function drawBooks(widthOfTable, heightOfTable, yPos, newyPos, red, green, blue) { 
     let widthOfBook = heightOfTable*0.70;
     let heightOfBook = widthOfTable*0.25;
-
-    // book 0: ARHS research paper
-    // book 1: L'Influence Japonaise Façonne Paris
-    // book 2: ARHS visual analysis
 
     // binding
     fill(red, green, blue);
@@ -426,18 +420,18 @@ function drawBooks(widthOfTable, heightOfTable, yPos, newyPos, red, green, blue)
 
     // decrements newyPos, widthOfBook, and fill color. saves newyPos and widthOfBook into arrays
     let i = 0;
-    if (newyPos >= yPos-(heightOfBook*1.5)) { // 3 books
+    if (newyPos >= yPos-(heightOfBook*1.5)) {
         drawBooks(widthOfTable, widthOfBooks[i] = heightOfTable*.95, yPos, yBooks[i] = newyPos-=heightOfBook, red+=10, green+=10, blue);
-        if (i < 2) { i++ } 
+        if (i < 2) { i++ } // bypass of a for loop. 3 books
         else { i = 0; }
     }
 }
 
 // constantly checks if the cursor is positioned over a book. called from draw()
 function checkForBookHover() {
-    for (int i = 0; i < 2; i++) {
-        if (mouseX >= widthOfTable && mouseX <= widthOfTable + widthOfBooks[i] &&
-         mouseY >= heightOfTable && mouseY <= y+h) {
+    for (let i = 0; i < 2; i++) {
+        if (mouseX >= xTable1 - widthOfBooks[i]/2 && mouseX <= xTable1 + widthOfBooks[i]/2 &&
+         mouseY >= yTable1 - heightOfBook/2 + yBooks[i] && mouseY <= yTable1 + heightOfBook/2 + yBooks[i]) {
             return isHoveringOverBooks[i] = true;
       } else {
             return isHoveringOverBooks[i] = false;
@@ -446,13 +440,23 @@ function checkForBookHover() {
 }
 
 function mouseClicked() {
-    if (isHoveringOverBooks[0]) {
-        window.open("", "", "height=700,width=800");
-    } else if (isHoveringOverBooks[1]) {
-window.open("https://docs.google.com/document/d/1_uPsb30FZtp45i1f2sxuBVXOJusTbsrf/edit?usp=sharing&ouid=113525944669857556919&rtpof=true&sd=true", "", "height=700,width=800");
-    } else if (isHoveringOverBooks[2]) {
-        window.open("", "", "height=700,width=800");
+    // left table
+    if (isHoveringOverBooks[0]) { // Dutch-Japanese Trade
+window.open("https://drive.google.com/file/d/1i3ciYSyNHDl9H2-QKNwZSkbjiXK6yypp/view?usp=sharing", "", "height=700,width=800");
+    } else if (isHoveringOverBooks[1]) { // visual analysis
+window.open("https://drive.google.com/file/d/1Q-XImrmsaFj1-LA1_tFyJj0DZSpiFsJm/view?usp=sharing", "", "height=700,width=800");
+    } else if (isHoveringOverBooks[2]) { // 1330 final
+window.open("https://drive.google.com/file/d/1VWyDc2xbQxsyrK8TxBMDFDpb3kZwZ5sT/view?usp=sharing", "", "height=700,width=800");
     }
+    // right table
+    /* else if (isHoveringOverBooks[3]) { // Japonaise Paris  window.open("https://drive.google.com/file/d/1g6vIzqogWmG5xVtyo-PldZTCV6f0_W98/view?usp=sharing", "", "height=700,width=800");
+    }
+    else if (isHoveringOverBooks[4]) { // proposition
+window.open("https://drive.google.com/file/d/17u9y4GXJG1anETmzGCBBZe7Bij9Y_C9p/view?usp=sharing", "", "height=700,width=800");
+    }
+    else if (isHoveringOverBooks[5]) { // l'identité française  window.open("https://drive.google.com/file/d/1URNNNkKEUMNhcYLXcG7l3zhYsIHQ0ltJ/view?usp=sharing", "", "height=700,width=800");
+    }
+    */
 }
 
 // draws about me on the right table. called from within drawTable()'s push/pop
