@@ -54,6 +54,7 @@ let xTable2;
 let yTable2;
 let widthOfTable;
 let heightOfTable;
+let widthOfBook;
 let heightOfBook;
 let yBooks = [];
 let widthOfBooks = [];
@@ -417,7 +418,7 @@ function drawTable(xPos, yPos, rotation, decor) {
 
 // recursive function to draw 3 books per table that link to writing sample PDFs. called from within drawTable()'s push/pop
 function drawBooks(widthOfTable, heightOfTable, yPos, newyPos, red, green, blue) { 
-    let widthOfBook = heightOfTable*0.70;
+    widthOfBook = heightOfTable*0.70;
     heightOfBook = widthOfTable*0.25;
 
     // binding
