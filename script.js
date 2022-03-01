@@ -54,6 +54,7 @@ let xTable2;
 let yTable2;
 let widthOfTable;
 let heightOfTable;
+let heightOfBook;
 let yBooks = [];
 let widthOfBooks = [];
 let isHoveringOverBooks = [false, false, false, false, false, false];
@@ -96,6 +97,13 @@ function draw() {
     // noLoop(); // uncommenting repositions (bad) and removes duplication (good) of plaque, and opens dfp file for smu (bad)
 
     assignDynamicVariables(); // variables that rely on Window CALL FIRST
+    checkForBookHover();
+    // debug
+    for (let i = 0; i < isHoveringOverBooks.length; i++) {
+        if (isHoveringOverBooks[i]) {
+            print(i);
+        }
+    }
     
     // wall
     drawBackground(0, windowWidth, spacingOfWall, 0, windowHeight*0.8, spacingOfWall, wallColors, xPosWall, yPosWall, xSizeWall, ySizeWall, roundWall); 
@@ -409,7 +417,7 @@ function drawTable(xPos, yPos, rotation, decor) {
 // recursive function to draw 3 books per table that link to writing sample PDFs. called from within drawTable()'s push/pop
 function drawBooks(widthOfTable, heightOfTable, yPos, newyPos, red, green, blue) { 
     let widthOfBook = heightOfTable*0.70;
-    let heightOfBook = widthOfTable*0.25;
+    heightOfBook = widthOfTable*0.25;
 
     // binding
     fill(red, green, blue);
@@ -422,16 +430,24 @@ function drawBooks(widthOfTable, heightOfTable, yPos, newyPos, red, green, blue)
     let i = 0;
     if (newyPos >= yPos-(heightOfBook*1.5)) {
         drawBooks(widthOfTable, widthOfBooks[i] = heightOfTable*.95, yPos, yBooks[i] = newyPos-=heightOfBook, red+=10, green+=10, blue);
-        if (i < 2) { i++ } // bypass of a for loop. 3 books
+        if (i < 2) { i++; } // bypass of a for loop. 3 books
         else { i = 0; }
     }
 }
 
-// constantly checks if the cursor is positioned over a book. called from draw()
+// constantly checks if the cursor is positioned over a book and returns isHoveringOverBooks. called from draw()
 function checkForBookHover() {
-    for (let i = 0; i < 2; i++) {
-        if (mouseX >= xTable1 - widthOfBooks[i]/2 && mouseX <= xTable1 + widthOfBooks[i]/2 &&
-         mouseY >= yTable1 - heightOfBook/2 + yBooks[i] && mouseY <= yTable1 + heightOfBook/2 + yBooks[i]) {
+    let xTable;
+    let yYtable;
+    for (let i = 0; i < isHoveringOverBooks.length; i++) {
+        if (i < isHoveringOverBooks.length/2) {
+            xTable = xTable1;
+            yTable = yTable1;
+        } else {
+            xTable = xTable2;
+            yTable = yTable2;
+        }
+        if (mouseX >= xTable - widthOfBooks[i]/2 && mouseX <= xTable + widthOfBooks[i]/2 && mouseY >= yTable - heightOfBook/2 + yBooks[i] && mouseY <= yTable + heightOfBook/2 + yBooks[i]) {
             return isHoveringOverBooks[i] = true;
       } else {
             return isHoveringOverBooks[i] = false;
@@ -449,13 +465,14 @@ window.open("https://drive.google.com/file/d/1Q-XImrmsaFj1-LA1_tFyJj0DZSpiFsJm/v
 window.open("https://drive.google.com/file/d/1VWyDc2xbQxsyrK8TxBMDFDpb3kZwZ5sT/view?usp=sharing", "", "height=700,width=800");
     }
     // right table
-    /* else if (isHoveringOverBooks[3]) { // Japonaise Paris  window.open("https://drive.google.com/file/d/1g6vIzqogWmG5xVtyo-PldZTCV6f0_W98/view?usp=sharing", "", "height=700,width=800");
+    else if (isHoveringOverBooks[3]) { // Japonaise Paris
+window.open("https://drive.google.com/file/d/1g6vIzqogWmG5xVtyo-PldZTCV6f0_W98/view?usp=sharing", "", "height=700,width=800");
     }
     else if (isHoveringOverBooks[4]) { // proposition
 window.open("https://drive.google.com/file/d/17u9y4GXJG1anETmzGCBBZe7Bij9Y_C9p/view?usp=sharing", "", "height=700,width=800");
     }
-    else if (isHoveringOverBooks[5]) { // l'identité française  window.open("https://drive.google.com/file/d/1URNNNkKEUMNhcYLXcG7l3zhYsIHQ0ltJ/view?usp=sharing", "", "height=700,width=800");
+    else if (isHoveringOverBooks[5]) { // l'identité française  
+window.open("https://drive.google.com/file/d/1URNNNkKEUMNhcYLXcG7l3zhYsIHQ0ltJ/view?usp=sharing", "", "height=700,width=800");
     }
-    */
 }
   
