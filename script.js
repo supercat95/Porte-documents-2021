@@ -123,6 +123,7 @@ function draw() {
     // layer 3
     drawTable(xTable1, yTable1, PI/100, "left"); // left table
     drawTable(xTable2, yTable2, PI/70, "right"); // right table
+    // print(yBooks); // all books have book 0 coords
 
     // layer 1
     drawTVsForCodeVideos(); // call last because of error
@@ -426,13 +427,13 @@ function drawBooks(widthOfTable, heightOfTable, yPos, newyPos, red, green, blue)
     fill(250, 245, 235); // paper beige
     rect(widthOfBook*0.42, newyPos, widthOfBook*0.15, heightOfBook-4);
 
-    // decrements newyPos, widthOfBook, and fill color. saves newyPos and widthOfBook into arrays
+    // decrements newyPos, widthOfBook, and fill color. saves newyPos and widthOfBook into arrays. recursive function
     let i = 0;
     if (newyPos >= yPos-(heightOfBook*1.5)) {
         drawBooks(widthOfTable, widthOfBooks[i] = heightOfTable*.95, yPos, yBooks[i] = newyPos-=heightOfBook, red+=10, green+=10, blue);
-        if (i < 2) { i++; } // bypass of a for loop. 3 books
-        else { i = 0; }
     }
+    if (i < 2) { i++; } // bypass of a for loop. 3 books
+    else { i = 0; }
 }
 
 // constantly checks if the cursor is positioned over a book and returns isHoveringOverBooks. called from draw()
