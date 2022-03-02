@@ -124,6 +124,10 @@ function draw() {
     drawTable(xTable1, yTable1, PI/100, "left"); // left table
     drawTable(xTable2, yTable2, PI/70, "right"); // right table
      checkForBookHover();
+     // debug
+    for (let i = 0; i < numBooks; i++) {
+        //print(isHoveringOverBooks);
+    }
 
     // layer 1
     drawTVsForCodeVideos(); // call last because of error
@@ -412,7 +416,7 @@ function drawTable(xPos, yPos, rotation, decor) {
                 drawBooks2(heightOfTable, 0, 0, 165, 128, 230, 0);
                 } else if (decor == "right") { // green
                 // variablesForBook(yPos, numBooks/2);
-                //drawBooks2(heightOfTable, 0, 0, 126, 229, 123, numBooks/2);
+                drawBooks2(heightOfTable, 0, 0, 126, 229, 123, numBooks/2);
                 }
             pop();
     pop();
@@ -474,13 +478,10 @@ function drawBooks2(heightOfTable, yPos, y1, red, green, blue, index) {
     // pages
     fill(250, 245, 235); // paper beige
     rect(widthOfBooks[index]*0.42, yBooks[index], widthOfBooks[index]*0.15, heightOfBook-4);
-
-    print("yBooks: " + yBooks); //0 -21 -43
-    //print("widthOfBooks: " + widthOfBooks); // 69 66 62
     
     // recursive function to decrement heightOfTable, yPos, red, green; increment index; called twice, for 3 books total
     if (yBooks[index] >= y1-(heightOfBook*1.5)) {
-        drawBooks2(heightOfTable*0.95, yBooks[index]-heightOfBook, y1, red+10, green+10, blue, index++);
+        drawBooks2(heightOfTable*0.95, yBooks[index]-heightOfBook, y1, red+10, green+10, blue, index+1);
     }
 }
 
@@ -489,23 +490,18 @@ function checkForBookHover() {
     let xTable;
     let yYtable;
     for (let i = 0; i < numBooks; i++) {
-        //if (i < isHoveringOverBooks.length/2) {
+        if (i < numBooks/2) {
             xTable = xTable1;
             yTable = yTable1;
-        // } else {
-        //     xTable = xTable2;
-        //     yTable = yTable2;
-        //}
+        } else {
+            xTable = xTable2;
+            yTable = yTable2;
+        }
         if (mouseX >= xTable - widthOfBooks[i]/2 && mouseX <= xTable + widthOfBooks[i]/2 && mouseY >= yTable - heightOfBook/2 + yBooks[i] && mouseY <= yTable + heightOfBook/2 + yBooks[i]) {
-            return isHoveringOverBooks[i] = true;
+            isHoveringOverBooks[i] = true;
       } else {
-            return isHoveringOverBooks[i] = false;
+            isHoveringOverBooks[i] = false;
       }
-    }
-
-    // debug
-    for (let i = 0; i < numBooks; i++) {
-        //print(isHoveringOverBooks);
     }
 }
 
