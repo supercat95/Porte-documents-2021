@@ -124,10 +124,6 @@ function draw() {
     drawTable(xTable1, yTable1, PI/100, "left"); // left table
     drawTable(xTable2, yTable2, PI/70, "right"); // right table
      checkForBookHover();
-     // debug
-    for (let i = 0; i < numBooks; i++) {
-        //print(isHoveringOverBooks);
-    }
 
     // layer 1
     drawTVsForCodeVideos(); // call last because of error
@@ -411,62 +407,15 @@ function drawTable(xPos, yPos, rotation, decor) {
             push();
                 rotate(-rotation);
                 if (decor == "left") { // purple
-                //variablesForBooks(yPos, 0);
-                //drawBooks1(165, 128, 230);
-                drawBooks2(heightOfTable, 0, 0, 165, 128, 230, 0);
+                drawBooks(heightOfTable, 0, 0, 165, 128, 230, 0);
                 } else if (decor == "right") { // green
-                // variablesForBook(yPos, numBooks/2);
-                drawBooks2(heightOfTable, 0, 0, 126, 229, 123, numBooks/2);
+                drawBooks(heightOfTable, 0, 0, 126, 229, 123, numBooks/2);
                 }
             pop();
     pop();
 }
 
-function variablesForBooks(yPos, index) {
-    heightOfBook = widthOfTable*0.25;
-    // decrements width and ypos and saves into global arrays
-    for (i = index; i < index + numBooks/2; i++) {
-        widthOfBooks[i] = heightOfTable*0.70;
-        yBooks[i] = yPos - heightOfBook;
-
-        heightOfTable*=0.95;
-        yPos-=heightOfBook;
-    }
-}
-
-function drawBooks1(red, green, blue) {
-    for (let i = 0; i < numBooks/2; i++) {
-        // binding
-        fill(red, green, blue);
-        rect(0, yBooks[i], widthOfBooks[i], heightOfBook);
-        // pages
-        fill(250, 245, 235);
-        rect(widthOfBooks[i]*0.42, yBooks[i], widthOfBooks[i]*0.15, heightOfBook-4);
-        
-        red+=10;
-        green+=10;
-    }
-}
-
-// recursive function to draw 3 books per table that link to writing sample PDFs. called from within drawTable()'s push/pop
-function drawBooks(heightOfTable, yPos, newyPos, red, green, blue) { 
-    widthOfBook = heightOfTable*0.70;
-    heightOfBook = widthOfTable*0.25;
-
-    // binding
-    fill(red, green, blue);
-    rect(0, newyPos, widthOfBook, heightOfBook);
-    // pages
-    fill(250, 245, 235); // paper beige
-    rect(widthOfBook*0.42, newyPos, widthOfBook*0.15, heightOfBook-4);
-
-    // decrements newyPos, widthOfBook, and fill color. saves newyPos and widthOfBook into arrays. recursive function
-    if (newyPos >= yPos-(heightOfBook*1.5)) {
-        drawBooks(heightOfTable*.95, yPos, newyPos-=heightOfBook, red+=10, green+=10, blue);
-    }
-}
-
-function drawBooks2(heightOfTable, yPos, y1, red, green, blue, index) { 
+function drawBooks(heightOfTable, yPos, y1, red, green, blue, index) { 
     heightOfBook = widthOfTable*0.25; // static
     
     widthOfBooks[index] = heightOfTable*0.70;
@@ -481,7 +430,7 @@ function drawBooks2(heightOfTable, yPos, y1, red, green, blue, index) {
     
     // recursive function to decrement heightOfTable, yPos, red, green; increment index; called twice, for 3 books total
     if (yBooks[index] >= y1-(heightOfBook*1.5)) {
-        drawBooks2(heightOfTable*0.95, yBooks[index]-heightOfBook, y1, red+10, green+10, blue, index+1);
+        drawBooks(heightOfTable*0.95, yBooks[index]-heightOfBook, y1, red+10, green+10, blue, index+1);
     }
 }
 
