@@ -354,12 +354,13 @@ function drawSpotlightsUnderTVs() {
     let y2 = y1 - (heightOfTV*.75);
     let rad = widthOfTV/4;
 
-    fill(246, 240, 114, 180); // yellow
+    fill(246, 240, 114); // yellow
     noStroke();
 
     ellipse(x1ForLayer2, y1, rad);
     ellipse(x2ForLayer2, y1, rad);
 
+    fill(246, 240, 114, 180); // transparent yellow
     // bottom, left, right
     triangle(x1ForLayer2,y1, x1ForLayer2-rad,y2, x1ForLayer2+rad,y2);
     triangle(x2ForLayer2,y1, x2ForLayer2-rad,y2, x2ForLayer2+rad,y2);
