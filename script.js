@@ -436,8 +436,11 @@ function drawBooks(heightOfTable, yPos, y1, red, green, blue, index) {
 
 // constantly checks if the cursor is positioned over a book and returns isHoveringOverBooks. called from draw()
 function checkForBookHover() {
+    let mouse = createImg('','');
+    
     let xTable;
-    let yYtable;
+    let ytable;
+    
     for (let i = 0; i < numBooks; i++) {
         if (i < numBooks/2) {
             xTable = xTable1;
@@ -448,11 +451,17 @@ function checkForBookHover() {
         }
         if (mouseX >= xTable - widthOfBooks[i]/2 && mouseX <= xTable + widthOfBooks[i]/2 && mouseY >= yTable - heightOfBook/2 + yBooks[i] && mouseY <= yTable + heightOfBook/2 + yBooks[i]) {
             isHoveringOverBooks[i] = true;
+            // CSS hack to change cursor to pointer
+            mouse.size(widthOfBooks[i], heightOfBook);
+            mouse.position(xTable - widthOfBooks[i]/2 + widthOfBooks[i]*0.15, yTable + yBooks[i]);
+            mouse.style("cursor", "pointer");
+            mouse.style("opacity", "0");
       } else {
             isHoveringOverBooks[i] = false;
       }
     }
 }
+
 
 function mouseClicked() {
     // left table
