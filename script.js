@@ -426,7 +426,7 @@ function drawTable(xPos, yPos, rotation, decor) {
 function drawBooks(heightOfTable, yPos, y1, red, green, blue, outline, filling, index) { 
     heightOfBook = widthOfTable*0.25; // static
     
-    widthOfBooks[index] = heightOfTable*0.70;
+    widthOfBooks[index] = heightOfTable*0.85;
     yBooks[index] = yPos;
 
     // binding
