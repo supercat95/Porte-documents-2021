@@ -424,7 +424,7 @@ function drawTable(xPos, yPos, rotation, decor) {
 }
 
 function drawBooks(heightOfTable, yPos, y1, red, green, blue, outline, filling, index) { 
-    heightOfBook = widthOfTable*0.25; // static
+    heightOfBook = widthOfTable*0.33; // static
     
     widthOfBooks[index] = heightOfTable*0.85;
     yBooks[index] = yPos;
@@ -440,8 +440,8 @@ function drawBooks(heightOfTable, yPos, y1, red, green, blue, outline, filling, 
     fill(filling);
     stroke(color(outline));
     strokeWeight(1);
-    textSize(heightOfBook/2);
-    text(essayNames[index], 0, yBooks[index]);
+    textSize((heightOfBook * widthOfBooks[index] / textWidth(essayNames[index])) * 0.5);
+    text(essayNames[index], -widthOfBooks[index]*0.07, yBooks[index]);
     pop();
     
     // recursive function to decrement heightOfTable, yPos, red, green; increment index; called twice, for 3 books total
