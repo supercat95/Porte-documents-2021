@@ -123,10 +123,10 @@ function draw() {
         rect(0, windowHeight*0.8 - minWall, windowWidth, maxWall);
     pop();
     // layer 2
+    drawLegends();
     drawPedestals();
     drawSpotlightsUnderTVs();
     drawDiplomas();
-    drawLegends();
     // layer 3
     drawTable(xTable1, yTable1, PI/100, "left"); // left table
     drawTable(xTable2, yTable2, PI/70, "right"); // right table
