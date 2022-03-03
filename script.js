@@ -59,6 +59,7 @@ let heightOfBook;
 let numBooks = 6;
 let yBooks = [];
 let widthOfBooks = [];
+let essayNames = [];
 let isHoveringOverBooks = [];
 
 // JSON parsing
@@ -93,6 +94,8 @@ function setup() {
     strokeOfSupports = 3;
     strokeDif = strokeOfTV - strokeOfSupports;
 
+    // layer 3
+    essayNames = ['Document de recherche', 'Analyse visuelle', 'Examen final', 'Recherche des arts', 'Proposition', 'Réflexion'];
     // initializes boolean to false by default
     for (let i = 0; i < numBooks; i++) {
         isHoveringOverBooks[i] = false;
@@ -407,15 +410,15 @@ function drawTable(xPos, yPos, rotation, decor) {
             push();
                 rotate(-rotation);
                 if (decor == "left") { // purple
-                drawBooks(heightOfTable, 0, 0, 165, 128, 230, 0);
+                drawBooks(heightOfTable, 0, 0, 165, 128, 230, 0, (255), 0);
                 } else if (decor == "right") { // green
-                drawBooks(heightOfTable, 0, 0, 126, 229, 123, numBooks/2);
+                drawBooks(heightOfTable, 0, 0, 126, 229, 123, 255, (134,98,71), numBooks/2);
                 }
             pop();
     pop();
 }
 
-function drawBooks(heightOfTable, yPos, y1, red, green, blue, index) { 
+function drawBooks(heightOfTable, yPos, y1, red, green, blue, outline, filling, index) { 
     heightOfBook = widthOfTable*0.25; // static
     
     widthOfBooks[index] = heightOfTable*0.70;
@@ -427,10 +430,18 @@ function drawBooks(heightOfTable, yPos, y1, red, green, blue, index) {
     // pages
     fill(250, 245, 235); // paper beige
     rect(widthOfBooks[index]*0.42, yBooks[index], widthOfBooks[index]*0.15, heightOfBook-4);
+    // titles
+    push();
+    fill(filling);
+    stroke(color(outline));
+    strokeWeight(1);
+    textSize(heightOfBook/2);
+    text(essayNames[index], 0, yBooks[index]);
+    pop();
     
     // recursive function to decrement heightOfTable, yPos, red, green; increment index; called twice, for 3 books total
     if (yBooks[index] >= y1-(heightOfBook*1.5)) {
-        drawBooks(heightOfTable*0.95, yBooks[index]-heightOfBook, y1, red+10, green+10, blue, index+1);
+        drawBooks(heightOfTable*0.95, yBooks[index]-heightOfBook, y1, red+10, green+10, blue, outline, filling, index+1);
     }
 }
 
