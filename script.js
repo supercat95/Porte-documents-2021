@@ -48,6 +48,7 @@ let widthOfPed;
 let heightsOfPed  = [];
 
 // variables for layer 3
+let tableColors = [];
 let xTable1;
 let yTable1;
 let xTable2;
@@ -95,6 +96,9 @@ function setup() {
     strokeDif = strokeOfTV - strokeOfSupports;
 
     // layer 3
+    tableColors[0] = color(151,108,66); // table edge color
+    tableColors[1] = color(175,128,85); // tabletop color
+    tableColors[2] = color(134,98,71); // table legs color
     essayNames = ['Document de recherche', 'Analyse visuelle', 'Examen final', 'Recherche des arts', 'Proposition', 'Réflexion'];
     // initializes boolean to false by default
     for (let i = 0; i < numBooks; i++) {
@@ -271,8 +275,8 @@ function embedCodeVideos(i) {
 function drawLegends() { // change coords. call from index.html. loop.
     let xLegend = yPosWave + widthOfPed;
     let yLegend = windowHeight * 0.32;
-    stroke(151,108,66); // table edge color
-    fill(175,128,85); // tabletop color
+    stroke(tableColors[0]);
+    fill(tableColors[1]);
     rect(xLegend, windowHeight * 0.36, widthOfPed*1.25, widthOfTV * 0.3);
 
     textSize(18);
@@ -395,16 +399,16 @@ function drawTable(xPos, yPos, rotation, decor) {
         rotate(rotation);
         noStroke();
             // legs 
-            fill(134,98,71); // brown-gray
+            fill(tableColors[2]);
             rect(0 - legxPos1 + offset, legHeight/2, legWidth, widthOfTable); // back left leg
             rect(0 - legxPos1, legHeight, legWidth, widthOfTable); // front left leg 
             rect(legxPos2 - offset, legHeight, legWidth, widthOfTable); // back right leg
             rect(legxPos2, legHeight/2, legWidth, widthOfTable); // front right leg
 
             // table surface
-            fill(151,108,66); // brown-green
+            fill(tableColors[0]);
             rect(offset/2, offset/2, heightOfTable+offset, widthOfTable+offset); // table side
-            fill(175,128,85); // brown-beige
+            fill(tableColors[1]);
             rect(0, 0, heightOfTable, widthOfTable); // table top
 
             push();
@@ -412,7 +416,7 @@ function drawTable(xPos, yPos, rotation, decor) {
                 if (decor == "left") { // purple
                 drawBooks(heightOfTable, 0, 0, 165, 128, 230, 0, (255), 0);
                 } else if (decor == "right") { // green
-                drawBooks(heightOfTable, 0, 0, 126, 229, 123, 255, (134,98,71), numBooks/2);
+                drawBooks(heightOfTable, 0, 0, 126, 229, 123, 255, tableColors[2], numBooks/2);
                 }
             pop();
     pop();
