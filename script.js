@@ -123,7 +123,7 @@ function draw() {
         rect(0, windowHeight*0.8 - minWall, windowWidth, maxWall);
     pop();
     // layer 2
-    drawLegends();
+    drawLegends(0);
     drawPedestals();
     drawSpotlightsUnderTVs();
     drawDiplomas();
@@ -271,13 +271,16 @@ function embedCodeVideos(i) {
 --layer 2: legends, pedestals, artwork, spotlights, diplomas--
 ============================================================*/
 // parses data from artwork.JSON and prints
-// temporarily called from draw() for debugging
-function drawLegends() { // change coords. call from index.html. loop.
+function drawLegends(i) {
+    let pause = 2; 
+    
     let xLegend = yPosWave + widthOfPed;
     let yLegend = windowHeight * 0.32;
+    
     stroke(tableColors[0]);
     fill(tableColors[1]);
-    rect(xLegend, windowHeight * 0.36, widthOfPed*1.25, widthOfTV * 0.3);
+    
+    rect(xLegend, windowHeight*0.36, widthOfPed*1.25, widthOfTV*0.3);
 
     textSize(18);
     let leading = 20;
@@ -285,13 +288,17 @@ function drawLegends() { // change coords. call from index.html. loop.
     noStroke();
     fill(255,255,255);
 
-    for (let i = 0; i < 5; i++) {
-        text(data.legends[0].Title, xLegend, yLegend);
-        text(data.legends[0].Author, xLegend, yLegend + leading);
-        text(data.legends[0].Technique, xLegend, yLegend + leading * 2);
-        text(data.legends[0].Date, xLegend, yLegend + leading * 3);
-        text(data.legends[0].Statement, xLegend, yLegend * 4);
-  }
+    text(data.legends[i].Title, xLegend, yLegend);
+    text(data.legends[i].Author, xLegend, yLegend + leading);
+    text(data.legends[i].Technique, xLegend, yLegend + leading * 2);
+    text(data.legends[i].Date, xLegend, yLegend + leading * 3);
+    text(data.legends[i].Statement, xLegend, yLegend * 4, widthOfPed*1.25, widthOfTV);
+
+    if (frameCount % 60 == 0) { pause--; }
+    if (pause <= 0 && i < 3) {
+        i++
+        drawLegends(i);
+    }
 }
 
 // draws 3 pedestals underneath the code tvs and places artwork on top. calls 2 other functions
