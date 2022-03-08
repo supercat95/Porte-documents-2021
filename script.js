@@ -124,7 +124,7 @@ function draw() {
         rect(0, windowHeight*0.8 - minWall, windowWidth, maxWall);
     pop();
     // layer 2
-    //drawLegends();
+    drawLegends();
     drawPedestals();
     drawSpotlightsUnderTVs();
     drawDiplomas();
@@ -276,23 +276,28 @@ function drawLegends() {
     let xLegend = yPosWave + widthOfPed;
     let yLegend = windowHeight * 0.32;
     let time = int(millis()/1000);
-    
+    let legend = data.legends[indexOfLegends];
+
     stroke(tableColors[0]);
     fill(tableColors[1]);
     
-    rect(xLegend, yLegend, widthOfPed*1.25, widthOfTV*0.3);
+    rect(xLegend, windowHeight * 0.36, widthOfPed*1.25, widthOfTV*0.3);
 
     textSize(18);
     let leading = 20;
+    let spacing = 20;
     textAlign(CENTER, CENTER);
     noStroke();
     fill(255,255,255);
 
-    text(data.legends[indexOfLegends].Title, xLegend, yLegend);
-    text(data.legends[indexOfLegends].Author, xLegend, yLegend + leading);
-    text(data.legends[indexOfLegends].Technique, xLegend, yLegend + leading * 2);
-    text(data.legends[indexOfLegends].Date, xLegend, yLegend + leading * 3);
-    text(data.legends[indexOfLegends].Statement, xLegend, yLegend + leading * 4, widthOfPed*1.25, widthOfTV);
+    text(legend.Title, xLegend, windowHeight * 0.36, widthOfPed*1.25, widthOfTV);
+    if (textWidth(legend.Title) > int(widthOfPed*1.25)) {
+        leading += spacing;
+    }
+    //text(legend.Author, xLegend, yLegend + leading);
+    //text(legend.Technique, xLegend, yLegend + leading); // + spacing);
+    //text(legend.Date, xLegend, yLegend + leading + spacing); //*2 );
+    //text(legend.Statement, xLegend, yLegend + leading + spacing*4, widthOfPed*1.25, widthOfTV);
 
     if (time%2==0 && frameCount%30==0) {
         indexOfLegends++;
@@ -305,13 +310,10 @@ function drawLegends() {
 // draws 3 pedestals underneath the code tvs and places artwork on top. calls 2 other functions
 function drawPedestals() {
     push();
-    fill(248,248,241); // slight off-white
-
-    // horizontally spaces out the pedestals
+    // horizontally spaces out the pedestals and images
     for (let i = 0; i < 3; i++) {
         push();
         translate(xstartWave + (i*windowWidth/2.5), ystartWave);
-        drawLegends();
         drawPedestal();
         embedArtwork(i);
         pop();
@@ -321,17 +323,18 @@ function drawPedestals() {
 
 // draws a pedestal using two drawWave() and a line
 function drawPedestal() {
-  beginShape();
-  // left wave
-  for(xPosWave=xstartWave; xPosWave<xstartWave+heightOfPed; xPosWave=xPosWave+4) {
+    fill(248,248,241); // slight off-white
+    beginShape();
+    // left wave
+    for(xPosWave=xstartWave; xPosWave<xstartWave+heightOfPed; xPosWave=xPosWave+4) {
     drawWave(7);
-  }
-  vertex(yPosWave+cos(widthOfPed), xPosWave); // bottom line
-  // right wave
-  for (xPosWave=xstartWave+heightOfPed; xPosWave>xstartWave-2; xPosWave=xPosWave-4) {
-    drawWave(-7);
-  }
-  endShape(CLOSE); // top line
+    }
+    vertex(yPosWave+cos(widthOfPed), xPosWave); // bottom line
+    // right wave
+    for (xPosWave=xstartWave+heightOfPed; xPosWave>xstartWave-2; xPosWave=xPosWave-4) {
+        drawWave(-7);
+    }
+    endShape(CLOSE); // top line
 }
 
 // draws a left and right wave
