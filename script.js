@@ -63,8 +63,9 @@ let widthOfBooks = [];
 let essayNames = [];
 let isHoveringOverBooks = [];
 
-// JSON parsing
+// JSON parsing for legends in layer 2
 let data = {};
+let indexOfLegends = 0;
 
 function preload() {
     data = loadJSON('artwork.json');
@@ -108,7 +109,7 @@ function setup() {
 
 function draw() {
     // console.log(pmouseX + ' ' + pmouseY); // for debug
-    // noLoop(); // uncommenting repositions (bad) and removes duplication (good) of plaque, and opens dfp file for smu (bad)
+    // noLoop(); // uncommenting repositions (bad) and opens dfp file for smu (bad)
 
     assignDynamicVariables(); // variables that rely on Window CALL FIRST
     
@@ -123,7 +124,7 @@ function draw() {
         rect(0, windowHeight*0.8 - minWall, windowWidth, maxWall);
     pop();
     // layer 2
-    drawLegends(0);
+    //drawLegends();
     drawPedestals();
     drawSpotlightsUnderTVs();
     drawDiplomas();
@@ -271,16 +272,15 @@ function embedCodeVideos(i) {
 --layer 2: legends, pedestals, artwork, spotlights, diplomas--
 ============================================================*/
 // parses data from artwork.JSON and prints
-function drawLegends(i) {
-    let pause = 2; 
-    
+function drawLegends() { 
     let xLegend = yPosWave + widthOfPed;
     let yLegend = windowHeight * 0.32;
+    let time = int(millis()/1000);
     
     stroke(tableColors[0]);
     fill(tableColors[1]);
     
-    rect(xLegend, windowHeight*0.36, widthOfPed*1.25, widthOfTV*0.3);
+    rect(xLegend, yLegend, widthOfPed*1.25, widthOfTV*0.3);
 
     textSize(18);
     let leading = 20;
@@ -288,17 +288,18 @@ function drawLegends(i) {
     noStroke();
     fill(255,255,255);
 
-    text(data.legends[i].Title, xLegend, yLegend);
-    text(data.legends[i].Author, xLegend, yLegend + leading);
-    text(data.legends[i].Technique, xLegend, yLegend + leading * 2);
-    text(data.legends[i].Date, xLegend, yLegend + leading * 3);
-    text(data.legends[i].Statement, xLegend, yLegend * 4, widthOfPed*1.25, widthOfTV);
+    text(data.legends[indexOfLegends].Title, xLegend, yLegend);
+    text(data.legends[indexOfLegends].Author, xLegend, yLegend + leading);
+    text(data.legends[indexOfLegends].Technique, xLegend, yLegend + leading * 2);
+    text(data.legends[indexOfLegends].Date, xLegend, yLegend + leading * 3);
+    text(data.legends[indexOfLegends].Statement, xLegend, yLegend + leading * 4, widthOfPed*1.25, widthOfTV);
 
-    if (frameCount % 60 == 0) { pause--; }
-    if (pause <= 0 && i < 3) {
-        i++
-        drawLegends(i);
+    if (time%2==0 && frameCount%30==0) {
+        indexOfLegends++;
     }
+    if (indexOfLegends == data.legends.length) {
+        indexOfLegends = 0;
+      }
 }
 
 // draws 3 pedestals underneath the code tvs and places artwork on top. calls 2 other functions
@@ -310,8 +311,8 @@ function drawPedestals() {
     for (let i = 0; i < 3; i++) {
         push();
         translate(xstartWave + (i*windowWidth/2.5), ystartWave);
+        drawLegends();
         drawPedestal();
-
         embedArtwork(i);
         pop();
     }
@@ -350,7 +351,7 @@ function embedArtwork(slideshow) {
     if (slideshow == 0) { slideIds = ["bonsai", "mulberry", "sakura"]; }
     else if (slideshow == 1) { slideIds = ["bowl-in-bowl", "vase", "pumpkin"]; }
     //else if (slideshow == 2) { slideIds = [""]; }
-    for (let i = 0; i < slideIds.length; i++ ) { 
+    for (let i = 0; i < slideIds.length; i++) { 
         embedStuff(slideIds[i], widthOfTV*0.5, 0, xstartWave + (slideshow * windowWidth/2.5) + (widthOfTV*0.08), ystartWave - (widthOfTV*0.33));
     }
 }
@@ -474,7 +475,7 @@ function checkForBookHover() {
         }
         if (mouseX >= xTable - widthOfBooks[i]/2 && mouseX <= xTable + widthOfBooks[i]/2 && mouseY >= yTable - heightOfBook/2 + yBooks[i] && mouseY <= yTable + heightOfBook/2 + yBooks[i]) {
             isHoveringOverBooks[i] = true;
-            // CSS hack to change cursor to pointer
+            // CSS "hack" to change cursor to pointer
             mouse.size(widthOfBooks[i], heightOfBook);
             mouse.position(xTable - widthOfBooks[i]/2 + widthOfBooks[i]*0.15, yTable + yBooks[i]);
             mouse.style("cursor", "pointer");
