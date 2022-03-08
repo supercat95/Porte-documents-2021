@@ -288,15 +288,15 @@ function drawLegends() {
     
         textSize(18);
         let leading = 20;
-        let spacing = 20;
+        //let spacing = 20;
         textAlign(CENTER, CENTER);
         noStroke();
         fill(255,255,255);
     
         text(legend.Title, xLegend + pedSpacing*i, windowHeight * 0.36, widthOfPed*1.25, widthOfTV);
-        if (textWidth(legend.Title) > int(widthOfPed*1.25)) {
-            leading += spacing;
-        }
+        // if (textWidth(legend.Title) > int(widthOfPed*1.25)) {
+        //     leading += spacing;
+        // }
         //text(legend.Author, xLegend, yLegend + leading);
         //text(legend.Technique, xLegend, yLegend + leading); // + spacing);
         //text(legend.Date, xLegend, yLegend + leading + spacing); //*2 );
