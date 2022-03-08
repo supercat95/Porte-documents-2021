@@ -125,7 +125,9 @@ function draw() {
         rect(0, windowHeight*0.8 - minWall, windowWidth, maxWall);
     pop();
     // layer 2
-    drawLegends();
+    drawLegends(yPosWave + widthOfPed); // left
+    drawLegends(yPosWave + widthOfPed + pedSpacing); // middle
+    drawLegends(yPosWave + widthOfPed + pedSpacing*2); // right
     drawPedestals();
     drawSpotlightsUnderTVs();
     drawDiplomas();
@@ -274,8 +276,8 @@ function embedCodeVideos(i) {
 --layer 2: legends, pedestals, artwork, spotlights, diplomas--
 ============================================================*/
 // parses data from artwork.JSON and prints
-function drawLegends() { 
-    let xLegend = yPosWave + widthOfPed;
+function drawLegends(xLegend) { 
+    //let xLegend = yPosWave + widthOfPed;
     let yLegend = windowHeight * 0.32;
     let time = int(millis()/1000);
     let legend = data.legends[indexOfLegends];
@@ -304,9 +306,9 @@ function drawLegends() {
     if (time%2==0 && frameCount%30==0) {
         indexOfLegends++;
     }
-    // if (indexOfLegends == data.legends.length) {
-    //     indexOfLegends = 0;
-    // }
+    if (indexOfLegends == data.legends.length) {
+        indexOfLegends = 0;
+    }
 }
 
 // draws 3 pedestals underneath the code tvs and places artwork on top. calls 2 other functions
