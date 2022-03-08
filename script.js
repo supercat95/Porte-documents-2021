@@ -277,7 +277,7 @@ function embedCodeVideos(i) {
 function drawLegends() { 
     let xLegend = yPosWave + widthOfPed;
     let yLegend = windowHeight * 0.32;
-    let time = int(millis()/1000);
+    let time = millis()/1000;
     let legend = data.legends[indexOfLegends];
 
     for (let i = 0; i < 3; i++) {
@@ -302,7 +302,7 @@ function drawLegends() {
         //text(legend.Date, xLegend, yLegend + leading + spacing); //*2 );
         //text(legend.Statement, xLegend, yLegend + leading + spacing*4, widthOfPed*1.25, widthOfTV);
     
-        if (time%2==0 && frameCount%30==0) {
+        if (int(time)%2==0 && frameCount%30==0) {
             indexOfLegends++;
         }
         if (indexOfLegends == data.legends.length) {
