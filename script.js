@@ -164,9 +164,9 @@ function assignDynamicVariables() {
     pedSpacing = windowWidth/2.5;
 
     // variables for layer 3
-    xTable1 = windowWidth*0.27;
+    xTable1 = windowWidth*0.25;
     yTable1 = windowHeight*0.83;
-    xTable2 = windowWidth*0.72;
+    xTable2 = windowWidth*0.75;
     yTable2 = windowHeight*0.85;
     widthOfTable = widthOfTV*0.3;
     heightOfTable = heightOfTV;
