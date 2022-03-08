@@ -74,6 +74,7 @@ function preload() {
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
+    frameRate(30);
     
     // colors for array for wall 
     wallPalette[0] = color(238,228,194,130); // light beige
