@@ -280,33 +280,35 @@ function drawLegends() {
     let time = int(millis()/1000);
     let legend = data.legends[indexOfLegends];
 
-    stroke(tableColors[0]);
-    fill(tableColors[1]);
+    for (let i = 0; i < 3; i++) {
+        stroke(tableColors[0]);
+        fill(tableColors[1]);
+        
+        rect(xLegend + pedSpacing*i, windowHeight * 0.36, widthOfPed*1.25, widthOfTV*0.3);
     
-    rect(xLegend, windowHeight * 0.36, widthOfPed*1.25, widthOfTV*0.3);
-
-    textSize(18);
-    let leading = 20;
-    let spacing = 20;
-    textAlign(CENTER, CENTER);
-    noStroke();
-    fill(255,255,255);
-
-    text(legend.Title, xLegend, windowHeight * 0.36, widthOfPed*1.25, widthOfTV);
-    if (textWidth(legend.Title) > int(widthOfPed*1.25)) {
-        leading += spacing;
+        textSize(18);
+        let leading = 20;
+        let spacing = 20;
+        textAlign(CENTER, CENTER);
+        noStroke();
+        fill(255,255,255);
+    
+        text(legend.Title, xLegend + pedSpacing*i, windowHeight * 0.36, widthOfPed*1.25, widthOfTV);
+        if (textWidth(legend.Title) > int(widthOfPed*1.25)) {
+            leading += spacing;
+        }
+        //text(legend.Author, xLegend, yLegend + leading);
+        //text(legend.Technique, xLegend, yLegend + leading); // + spacing);
+        //text(legend.Date, xLegend, yLegend + leading + spacing); //*2 );
+        //text(legend.Statement, xLegend, yLegend + leading + spacing*4, widthOfPed*1.25, widthOfTV);
+    
+        if (time%2==0 && frameCount%30==0) {
+            indexOfLegends++;
+        }
+        if (indexOfLegends == data.legends.length) {
+            indexOfLegends = 0;
+        }
     }
-    //text(legend.Author, xLegend, yLegend + leading);
-    //text(legend.Technique, xLegend, yLegend + leading); // + spacing);
-    //text(legend.Date, xLegend, yLegend + leading + spacing); //*2 );
-    //text(legend.Statement, xLegend, yLegend + leading + spacing*4, widthOfPed*1.25, widthOfTV);
-
-    if (time%2==0 && frameCount%30==0) {
-        indexOfLegends++;
-    }
-    // if (indexOfLegends == data.legends.length) {
-    //     indexOfLegends = 0;
-    // }
 }
 
 // draws 3 pedestals underneath the code tvs and places artwork on top. calls 2 other functions
