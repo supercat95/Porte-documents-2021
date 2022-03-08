@@ -46,6 +46,7 @@ let xPosWave; // for the wave trig, may rename
 let yPosWave; // for the wave trig, may rename
 let widthOfPed;
 let heightsOfPed  = [];
+let pedSpacing;
 
 // variables for layer 3
 let tableColors = [];
@@ -124,7 +125,9 @@ function draw() {
         rect(0, windowHeight*0.8 - minWall, windowWidth, maxWall);
     pop();
     // layer 2
-    drawLegends();
+    drawLegends("left");
+    drawLegends("middle");
+    drawLegends("right");
     drawPedestals();
     drawSpotlightsUnderTVs();
     drawDiplomas();
@@ -160,6 +163,7 @@ function assignDynamicVariables() {
     heightOfPed = windowHeight*0.2;
     xstartWave = widthOfTV/3.0 - widthOfPed/2;
     ystartWave = windowHeight*0.8 - heightOfPed;
+    pedSpacing = windowWidth/2.5;
 
     // variables for layer 3
     xTable1 = windowWidth*0.27;
@@ -272,8 +276,15 @@ function embedCodeVideos(i) {
 --layer 2: legends, pedestals, artwork, spotlights, diplomas--
 ============================================================*/
 // parses data from artwork.JSON and prints
-function drawLegends() { 
+function drawLegends(pedestal) { 
     let xLegend = yPosWave + widthOfPed;
+    if (pedestal == "left") {
+        
+    } else if (pedestal == "middle") {
+        xLegend += pedSpacing;
+    } else if (pedestal == "right") {
+        xLegend += 2*pedSpacing;
+    }
     let yLegend = windowHeight * 0.32;
     let time = int(millis()/1000);
     let legend = data.legends[indexOfLegends];
@@ -313,7 +324,7 @@ function drawPedestals() {
     // horizontally spaces out the pedestals and images
     for (let i = 0; i < 3; i++) {
         push();
-        translate(xstartWave + (i*windowWidth/2.5), ystartWave);
+        translate(xstartWave + (i*pedSpacing), ystartWave);
         drawPedestal();
         embedArtwork(i);
         pop();
