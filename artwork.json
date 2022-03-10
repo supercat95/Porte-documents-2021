@@ -1,12 +1,12 @@
 {
     "artwork": {
     	"glass":[
-    		{
-    			"Title": "Le bonsaï",
+            {
+    			"Title": "Sous-verre Nº2 L'arbre sakura",
     			"Author": "Joy Bates",
     			"Technique": "Verre",
     			"Date": "Octobre 2021",
-    			"Statement": ""
+    			"Statement": "Ces lignes douces aux couleurs pastel contrastent avec celles de la patische vibrante"
     		},
             {
     			"Title": "Sous-verre Nº1 La pastiche",
@@ -16,11 +16,11 @@
     			"Statement": "Inspiré par le tableau du même nom de Vincent van Gogh dont les couleurs vives et audacieuses me fascinent"
     		},
             {
-    			"Title": "Sous-verre Nº2 L'arbre sakura",
+    			"Title": "Le bonsaï",
     			"Author": "Joy Bates",
     			"Technique": "Verre",
     			"Date": "Octobre 2021",
-    			"Statement": "Ces lignes douces aux couleurs pastel contrastent avec celles de la patische vibrante"
+    			"Statement": ""
     		}
         ],
         "ceramics":[
@@ -32,17 +32,17 @@
     			"Statement": ""
     		},
             {
-    			"Title": "La vase",
-    			"Author": "Joy Bates",
-    			"Technique": "Grès",
-    			"Date": "2020",
-    			"Statement": ""
-    		},
-            {
     			"Title": "Un bocal en forme de citrouille",
     			"Author": "Joy Bates",
     			"Technique": "Grès",
     			"Date": "Automne 2020",
+    			"Statement": ""
+    		},
+            {
+    			"Title": "La vase",
+    			"Author": "Joy Bates",
+    			"Technique": "Grès",
+    			"Date": "2020",
     			"Statement": ""
     		}
         ],
