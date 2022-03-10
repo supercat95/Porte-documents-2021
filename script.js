@@ -278,23 +278,30 @@ function embedCodeVideos(i) {
 function drawLegends() { 
     let xLegend = yPosWave + widthOfPed;
     let yLegend = windowHeight * 0.32;
-    let time = millis()/1000;
-    let legend = data.legends[indexOfLegends];
+    let group;
 
     for (let i = 0; i < 3; i++) {
         stroke(tableColors[0]);
         fill(tableColors[1]);
         
         rect(xLegend + pedSpacing*i, windowHeight * 0.36, widthOfPed*1.25, widthOfTV*0.3);
-    
+
+        if (i == 0) {
+            group = "glass";
+        } else if (i == 1) {
+            group = "ceramics";
+        } else if (i == 2) {
+            group = "other";
+        }
+
         textSize(18);
-        let leading = 20;
+        //let leading = 20;
         //let spacing = 20;
         textAlign(CENTER, CENTER);
         noStroke();
         fill(255,255,255);
-    
-        text(legend.Title, xLegend + pedSpacing*i, windowHeight * 0.36, widthOfPed*1.25, widthOfTV);
+        
+        text(data.artwork[group][indexOfLegends].Title, xLegend + pedSpacing*i, windowHeight * 0.36, widthOfPed*1.25, widthOfTV);
         // if (textWidth(legend.Title) > int(widthOfPed*1.25)) {
         //     leading += spacing;
         // }
@@ -303,10 +310,10 @@ function drawLegends() {
         //text(legend.Date, xLegend, yLegend + leading + spacing); //*2 );
         //text(legend.Statement, xLegend, yLegend + leading + spacing*4, widthOfPed*1.25, widthOfTV);
     
-        if (int(time)%2==0 && frameCount%30==0) {
+        if (frameCount%60==0) {
             indexOfLegends++;
         }
-        if (indexOfLegends == data.legends.length) {
+        if (indexOfLegends >= 2) {
             indexOfLegends = 0;
         }
     }
