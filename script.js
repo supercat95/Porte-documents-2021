@@ -298,7 +298,8 @@ function drawLegends() {
         //let leading = 20;
         //let spacing = 20;
         textAlign(CENTER, CENTER);
-        noStroke();
+        stroke(0,0,0);
+        strokeWeight(0.5);
         fill(255,255,255);
         
         text(data.artwork[group][indexOfLegends].Title, xLegend + pedSpacing*i, windowHeight * 0.36, widthOfPed*1.25, widthOfTV);
@@ -336,6 +337,7 @@ function drawPedestals() {
 // draws a pedestal using two drawWave() and a line
 function drawPedestal() {
     fill(248,248,241); // slight off-white
+    noStroke();
     beginShape();
     // left wave
     for(xPosWave=xstartWave; xPosWave<xstartWave+heightOfPed; xPosWave=xPosWave+4) {
@@ -446,6 +448,7 @@ function drawTable(xPos, yPos, rotation, decor) {
     pop();
 }
 
+// draws 3 books per table. called from drawTable()
 function drawBooks(heightOfTable, yPos, y1, red, green, blue, outline, filling, index) { 
     heightOfBook = widthOfTable*0.33; // static
     
@@ -469,7 +472,7 @@ function drawBooks(heightOfTable, yPos, y1, red, green, blue, outline, filling, 
     
     // recursive function to decrement heightOfTable, yPos, red, green; increment index; called twice, for 3 books total
     if (yBooks[index] >= y1-(heightOfBook*1.5)) {
-        drawBooks(heightOfTable*0.95, yBooks[index]-heightOfBook, y1, red+10, green+10, blue, outline, filling, index+1);
+        drawBooks(heightOfTable*0.95, yBooks[index]-heightOfBook, y1, red+15, green+15, blue, outline, filling, index+1);
     }
 }
 
@@ -492,7 +495,7 @@ function checkForBookHover() {
             isHoveringOverBooks[i] = true;
             // CSS "hack" to change cursor to pointer
             mouse.size(widthOfBooks[i], heightOfBook);
-            mouse.position(xTable - widthOfBooks[i]/2 + widthOfBooks[i]*0.15, yTable + yBooks[i]);
+            mouse.position(xTable - widthOfBooks[i]/2 + widthOfBooks[i]*0.07, yTable + yBooks[i]);
             mouse.style("cursor", "pointer");
             mouse.style("opacity", "0");
       } else {
