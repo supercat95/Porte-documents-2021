@@ -309,13 +309,13 @@ function drawLegends() {
         //text(legend.Technique, xLegend, yLegend + leading); // + spacing);
         //text(legend.Date, xLegend, yLegend + leading + spacing); //*2 );
         //text(legend.Statement, xLegend, yLegend + leading + spacing*4, widthOfPed*1.25, widthOfTV);
-    
-        if (frameCount%60==0) {
-            indexOfLegends++;
-        }
-        if (indexOfLegends >= 2) {
-            indexOfLegends = 0;
-        }
+    }
+
+    if (frameCount%60==0) {
+        indexOfLegends++;
+    }
+    if (indexOfLegends == 3) {
+        indexOfLegends = 0;
     }
 }
 

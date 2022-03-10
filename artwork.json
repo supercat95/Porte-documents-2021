@@ -21,14 +21,7 @@
     			"Technique": "Verre",
     			"Date": "Octobre 2021",
     			"Statement": "Ces lignes douces aux couleurs pastel contrastent avec celles de la patische vibrante"
-    		},
-            {
-                "Title": "",
-                "Author": "",
-                "Technique": "",
-                "Date": "",
-                "Statement": ""
-            }
+    		}
         ],
         "ceramics":[
             {
@@ -51,14 +44,7 @@
     			"Technique": "Grès",
     			"Date": "Automne 2020",
     			"Statement": ""
-    		},
-            {
-                "Title": "",
-                "Author": "",
-                "Technique": "",
-                "Date": "",
-                "Statement": ""
-            }
+    		}
         ],
         "other":[
             {
@@ -81,14 +67,7 @@
     			"Technique": "",
     			"Date": "",
     			"Statement": ""
-    		},
-            {
-                "Title": "Pas encore crée",
-                "Author": "",
-                "Technique": "",
-                "Date": "",
-                "Statement": ""
-            }
+    		}
         ]
     }
 }
