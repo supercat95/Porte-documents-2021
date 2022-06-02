@@ -315,7 +315,7 @@ function drawLegends() {
     if (frameCount%60==0) {
         indexOfLegends++;
     }
-    if (indexOfLegends == 3) {
+    if (indexOfLegends == 4) {
         indexOfLegends = 0;
     }
 }
@@ -365,7 +365,7 @@ function drawWave(co) {
 // embeds artwork on the pedestals based off art type
 function embedArtwork(slideshow) {
     let slideIds = [];
-    if (slideshow == 0) { slideIds = ["bonsai", "mulberry", "sakura"]; }
+    if (slideshow == 0) { slideIds = ["kitten", "bonsai", "mulberry", "sakura"]; }
     else if (slideshow == 1) { slideIds = ["bowl-in-bowl", "vase", "pumpkin"]; }
     //else if (slideshow == 2) { slideIds = [""]; }
     for (let i = 0; i < slideIds.length; i++) { 

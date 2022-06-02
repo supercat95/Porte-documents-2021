@@ -21,6 +21,13 @@
     			"Technique": "Verre",
     			"Date": "Octobre 2021",
     			"Statement": ""
+    		},
+            {
+    			"Title": "Chaton de Kristine",
+    			"Author": "Joy Bates",
+    			"Technique": "Verre",
+    			"Date": "Mars - Mai 2022",
+    			"Statement": "Créé pour une amie"
     		}
         ],
         "ceramics":[
@@ -44,26 +51,40 @@
     			"Technique": "Grès",
     			"Date": "2020",
     			"Statement": ""
+    		},
+             {
+    			"Title": "Pas encore créé",
+    			"Author": "Joy Bates",
+    			"Technique": "",
+    			"Date": "",
+    			"Statement": ""
     		}
         ],
         "other":[
             {
-    			"Title": "Pas encore crée",
+    			"Title": "Pas encore créé",
     			"Author": "",
     			"Technique": "",
     			"Date": "",
     			"Statement": ""
     		},
             {
-    			"Title": "Pas encore crée",
+    			"Title": "Pas encore créé",
     			"Author": "",
     			"Technique": "",
     			"Date": "",
     			"Statement": ""
     		},
             {
-    			"Title": "Pas encore crée",
+    			"Title": "Pas encore créé",
     			"Author": "",
+    			"Technique": "",
+    			"Date": "",
+    			"Statement": ""
+    		},
+            {
+    			"Title": "Pas encore créé",
+    			"Author": "Joy Bates",
     			"Technique": "",
     			"Date": "",
     			"Statement": ""
